@@ -1,0 +1,96 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <meta name="fragment" content="!">
+
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="/bower_components/angular-xeditable/dist/css/xeditable.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/app.css -->
+    <link rel="stylesheet" href="styles/app.css">
+    <link rel="stylesheet" href="styles/angular-cms-blox.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="angularCmsBloxMock">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+
+
+
+
+
+
+
+    <div class="container">
+
+      <h1 cms-text="home.title"></h1>
+
+      <cms-login></cms-login>
+
+    </div>
+
+
+
+
+
+
+
+
+    <!-- build:js(.) scripts/oldieshim.js -->
+    <!--[if lt IE 9]>
+    <script src="/bower_components/es5-shim/es5-shim.js"></script>
+    <script src="/bower_components/json3/lib/json3.js"></script>
+    <![endif]-->
+    <!-- endbuild -->
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="/bower_components/modernizr/modernizr.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/bower_components/angular-translate/angular-translate.js"></script>
+    <script src="/bower_components/angular-resource/angular-resource.js"></script>
+    <script src="/bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="/bower_components/angular-route/angular-route.js"></script>
+    <script src="/bower_components/angular-touch/angular-touch.js"></script>
+    <script src="/bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+    <script src="/bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- dev dependencies -->
+    <script src="/bower_components/angular-mocks/angular-mocks.js"></script>
+    <script src="/bower_components/angular-scenario/angular-scenario.js"></script>
+    <!-- end -->
+
+    <!-- build:js({.tmp,src,demo}) -->
+    <!-- injector:js -->
+    <script src="/src/angular-cms-blox.mock.js"></script>
+    <script src="/src/angular-cms-blox.js"></script>
+    <script src="/src/authentication/login.js"></script>
+    <script src="/src/authentication/login.mock.js"></script>
+    <script src="/src/cms/cms-data-mock.js"></script>
+    <script src="/src/cms/cms-text.js"></script>
+    <script src="/src/cms/cms.js"></script>
+    <script src="/src/cms/cms.mock.js"></script>
+    <script src="/src/cms/cms.service.js"></script>
+    <script src="/src/security/authservice.js"></script>
+    <script src="/src/security/interceptor.js"></script>
+    <script src="/src/security/loginservice.js"></script>
+    <!-- endinjector -->
+    <!-- endbuild -->
+
+  </body>
+</html>
