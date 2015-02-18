@@ -21,5 +21,23 @@
     "angular-mocks": "~1.3.11",
     "angular-scenario": "~1.3.11"
   },
-  "https-proxy":"http://proxynlwp.europe.intranet:8080"
+  "homepage": "https://github.com/brugsel/angular-cms-blox",
+  "authors": [
+    "Lieuwe van Brug <lieuwe.van.brug@doon.nu>"
+  ],
+  "description": "Building blox to quickly create an AngularJS Site with CMS functionality",
+  "keywords": [
+    "angularjs",
+    "cms",
+    "module",
+    "blox"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
 }
