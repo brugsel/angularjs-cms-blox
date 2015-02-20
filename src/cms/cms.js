@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc directive
- * @name www.directive:dnCms
+ * @name www.directive:cms
  * @description
- * # dnCms
+ * # cms
  */
 angular.module('angularCmsBlox')
 

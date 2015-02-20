@@ -36,7 +36,7 @@
 
       <h1 cms-text="home.title"></h1>
 
-      <cms-login></cms-login>
+      <auth-login></auth-login>
 
     </div>
 
@@ -67,6 +67,7 @@
     <script src="/bower_components/angular-touch/angular-touch.js"></script>
     <script src="/bower_components/angular-xeditable/dist/js/xeditable.js"></script>
     <script src="/bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
+    <script src="/bower_components/satellizer/satellizer.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -79,8 +80,9 @@
     <!-- injector:js -->
     <script src="/src/angular-cms-blox.mock.js"></script>
     <script src="/src/angular-cms-blox.js"></script>
-    <script src="/src/authentication/login.js"></script>
-    <script src="/src/authentication/login.mock.js"></script>
+    <script src="/src/auth/auth.js"></script>
+    <script src="/src/auth/auth.mock.js"></script>
+    <script src="/src/auth/login.js"></script>
     <script src="/src/cms/cms-data-mock.js"></script>
     <script src="/src/cms/cms-text.js"></script>
     <script src="/src/cms/cms.js"></script>

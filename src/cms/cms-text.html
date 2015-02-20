@@ -1,3 +1,3 @@
 <span translate-cloak editable-text="text" onaftersave="ctrl.save()" e-form="textBtnForm">
-  {{text}} <i class="fa fa-edit" ng-if="ctrl.isLoggedIn()" class="btn btn-sm" ng-click="textBtnForm.$show()" ng-hide="textBtnForm.$visible"></i>
+  {{text}} <i class="fa fa-edit" ng-if="ctrl.isAuthenticated()" class="btn btn-sm" ng-click="textBtnForm.$show()" ng-hide="textBtnForm.$visible"></i>
 </span>

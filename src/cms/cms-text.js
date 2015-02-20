@@ -24,7 +24,7 @@ angular.module('angularCmsBlox')
 
   }])
 
-  .controller('cmsTextController', ['$translate', '$scope', 'Authservice', function($translate, $scope, Authservice){
+  .controller('cmsTextController', ['$translate', '$scope', '$auth', function($translate, $scope, $auth){
 
     $translate(this.key).then(function (translation) {
       $scope.text = translation;
@@ -34,8 +34,8 @@ angular.module('angularCmsBlox')
       //TODO lvb, implement
     };
 
-    this.isLoggedIn = function() {
-      return Authservice.isLoggedIn();
+    this.isAuthenticated = function() {
+      return $auth.isAuthenticated();
     };
 
   }]);
