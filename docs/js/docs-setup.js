@@ -5,12 +5,12 @@ NG_DOCS={
   "pages": [
     {
       "section": "api",
-      "id": "www.directive:cmsLogin",
-      "shortName": "cmsLogin",
+      "id": "www.directive:cms",
+      "shortName": "cms",
       "type": "directive",
       "moduleName": "www",
-      "shortDescription": "cmsLogin",
-      "keywords": "api cmslogin directive"
+      "shortDescription": "cms",
+      "keywords": "api cms directive"
     },
     {
       "section": "api",
@@ -20,15 +20,6 @@ NG_DOCS={
       "moduleName": "www",
       "shortDescription": "cmsText",
       "keywords": "api cmstext directive"
-    },
-    {
-      "section": "api",
-      "id": "www.directive:dnCms",
-      "shortName": "dnCms",
-      "type": "directive",
-      "moduleName": "www",
-      "shortDescription": "dnCms",
-      "keywords": "api directive dncms"
     }
   ],
   "apis": {

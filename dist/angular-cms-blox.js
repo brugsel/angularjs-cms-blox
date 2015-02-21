@@ -4,62 +4,211 @@
  * @name
  * @description
  */
-angular.module('angularCmsBlox',['ngResource', 'ngCookies', 'pascalprecht.translate', 'xeditable']);
+angular.module('angularCmsBlox',['ngResource', 'ngCookies', 'satellizer', 'pascalprecht.translate', 'xeditable']);
+
+angular.module('angularCmsBlox').run(['$templateCache', function($templateCache) {
+  'use strict';
+
+  $templateCache.put('auth/login.template.html',
+    "<div class=\"container\">\n" +
+    "  <button ng-hide=\"ctrl.isAuthenticated()\" ng-click=\"ctrl.authenticate('google')\">Sign in with Google</button>\n" +
+    "  <button ng-show=\"ctrl.isAuthenticated()\" ng-click=\"ctrl.logout()\">Logout</button>\n" +
+    "</div>\n"
+  );
+
+
+  $templateCache.put('cms/cms-text.template.html',
+    "<span translate-cloak editable-text=\"text\" onaftersave=\"ctrl.save()\" e-form=\"textBtnForm\">\n" +
+    "  {{text}} <i class=\"fa fa-edit\" ng-if=\"ctrl.isAuthenticated()\" class=\"btn btn-sm\" ng-click=\"textBtnForm.$show()\" ng-hide=\"textBtnForm.$visible\"></i>\n" +
+    "</span>\n"
+  );
+
+}]);
 
 'use strict';
 
 /**
- * @ngdoc directive
- * @name www.directive:cmsLogin
+ * @name www.directive:auth
  * @description
- * # cmsLogin
  */
-//TODO lvb, create seperate module?
 angular.module('angularCmsBlox')
-  .directive('cmsLogin', [function () {
+
+  .config(function($authProvider) {
+
+    $authProvider.google({
+      clientId: '402827681397-4bud9sjicgcshr9i5d6b1u9rmqccp3km.apps.googleusercontent.com',
+      url: 'http://localhost:3000/auth/google',
+      authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
+      redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host,
+      scope: ['profile', 'email'],
+      scopePrefix: 'openid',
+      scopeDelimiter: ' ',
+      requiredUrlParams: ['scope'],
+      optionalUrlParams: ['display'],
+      display: 'popup',
+      type: '2.0',
+      popupOptions: { width: 580, height: 400 }
+    });
+
+  });
+
+'use strict';
+
+angular.module('angularCmsBlox')
+  .factory('authService', ['$resource', function ($resource) {
+
+    //TOO lvb, make configurable
+    var Me = $resource('/auth/me');
+    var me;
+    var path;
+
+    var isAuthorized = function(accessLevel, callback) {
+
+      Me.get(function(data) {
+        me = data;
+        if (me.role >= accessLevel) {
+          callback(true);
+        } else {
+          callback(false);
+        }
+      });
+    };
+
+    // Public API here
+    return {
+      isAuthorized: isAuthorized,
+      getPath: function() {
+        return path;
+      },
+      setPath: function(data) {
+        path = data;
+      }
+    };
+
+  }]);
+
+'use strict';
+
+//TODO lvb, authenticator part of cms? configurable?
+angular.module('angularCmsBlox')
+  .constant('ACCESS_LEVELS', {
+    pub: 1,
+    user: 2,
+    aso: 4,
+    dooner: 8,
+    root: 16
+  })
+  .config(function ($httpProvider) {
+
+    var responseInterceptor =
+      function ($q, $rootScope) {
+        return {
+          'response': function (resp) {
+
+            console.log('URL: ' + resp.config.url);
+
+            return resp;
+          },
+          'responseError': function (rejection) {
+            // Handle errors
+            switch (rejection.status) {
+              case 401:
+                $rootScope.$broadcast('auth:loginRequired');
+                break;
+              case 403:
+                $rootScope.$broadcast('auth:forbidden');
+                break;
+              case 404:
+                $rootScope.$broadcast('page:notFound');
+                break;
+              case 500:
+                $rootScope.$broadcast('server:error');
+                break;
+            }
+
+            return $q.reject(rejection);
+          }
+        };
+      };
+
+    $httpProvider.interceptors.push(responseInterceptor);
+
+  })
+
+  .run(['$rootScope','$location','$auth','authService','ACCESS_LEVELS', function ($rootScope, $location, $auth, authService, ACCESS_LEVELS) {
+
+    // Set a watch on the $stateChangeStart
+    $rootScope.$on('$stateChangeStart', function (evt, next) {
+
+      if (next.accessLevel > ACCESS_LEVELS.pub) {
+        if ($auth.isAuthenticated()) {
+
+          authService.isAuthorized(next.accessLevel, function(authorized) {
+            if (!authorized) {
+              $location.path('/');
+            }
+          });
+
+        } else {
+          authService.setPath($location.path());
+          $location.path('/login');
+        }
+      }
+
+    });
+
+    $rootScope.$on('auth:loginRequired', function () {
+        authService.setPath($location.path());
+        $location.path('/login');
+    });
+
+  }]);
+
+'use strict';
+
+angular.module('angularCmsBlox')
+
+  .directive('authLogin', ['$location', 'authService', function ($location, authService) {
 
     return {
       restrict: 'EA',
       replace: true,
       scope: {
       },
-      templateUrl: 'authentication/login.html',
-      controller: ['$rootScope', '$location', 'Loginservice', 'Authservice', function($rootScope, $location, Loginservice, Authservice){
+      templateUrl: 'auth/login.template.html',
 
-        this.login = function () {
+      controller: ['$auth', function($auth){
 
-          if (this.cmsLoginForm.$valid) {
-
-            Loginservice.login(this.login.username, this.login.password)
-              .then(function () {
-                if (Authservice.getPath()) {
-                  $location.path(Authservice.getPath());
-                } else {
-                  $location.path('/');
-                }
-              }, function (err) {
-                //TODO, lvb emit error
-                console.log([err.data.error]);
-              });
-
-          }
-
-          this.cmsLoginForm.$submitted = true;
-
-          $rootScope.$broadcast('cms-event-logged-in');
+        this.authenticate = function(provider) {
+          $auth.authenticate(provider).then(function() {
+            if (authService.getPath()) {
+              $location.path(authService.getPath());
+            }
+          });
         };
 
-        this.isLoggedIn = function() {
-          return Authservice.isLoggedIn();
+        this.isAuthenticated = function() {
+          return $auth.isAuthenticated();
         };
 
-        this.isAuthorized = function(lvl) {
-          return Authservice.isAuthorized(lvl);
+        this.login = function() {
+          $auth.login({
+            email: this.email,
+            password: this.password
+          });
         };
 
         this.logout = function() {
-          Authservice.logout();
-          $rootScope.$broadcast('cms-event-logged-out');
+          $auth.logout();
+        };
+
+        this.login = function() {
+          $auth.signup({
+            email: this.email,
+            password: this.password
+          }).then(function (response) {
+            console.log(response.data);
+          });
         };
 
       }],
@@ -69,30 +218,7 @@ angular.module('angularCmsBlox')
 
     };
 
-  }])
-;
-
-var mockData = {};
-
-mockData.contentType = {'Content-type': 'application/json'};
-
-mockData.wwwHome =
-{
-  '_id': {
-    '$oid': '54cb4c34e4b0b3c7e59d03a0'
-  },
-  'site': 'www',
-  'part': 'home',
-  'lang': 'nl_NL',
-  'home': {
-    'title': 'Mooie titel in het Nederlands!',
-    'subTitle': 'Nou dat!'
-  }
-};
-
-mockData.wwwArray = [
-  mockData.wwwHome
-];
+  }]);
 
 'use strict';
 
@@ -112,7 +238,7 @@ angular.module('angularCmsBlox')
       scope: {
         key: '@cmsText'
       },
-      templateUrl: 'cms/cms-text.html',
+      templateUrl: 'cms/cms-text.template.html',
       controller: 'cmsTextController',
       controllerAs: 'ctrl',
       bindToController: true
@@ -120,7 +246,7 @@ angular.module('angularCmsBlox')
 
   }])
 
-  .controller('cmsTextController', ['$translate', '$scope', 'Authservice', function($translate, $scope, Authservice){
+  .controller('cmsTextController', ['$translate', '$scope', '$auth', function($translate, $scope, $auth){
 
     $translate(this.key).then(function (translation) {
       $scope.text = translation;
@@ -130,8 +256,8 @@ angular.module('angularCmsBlox')
       //TODO lvb, implement
     };
 
-    this.isLoggedIn = function() {
-      return Authservice.isLoggedIn();
+    this.isAuthenticated = function() {
+      return $auth.isAuthenticated();
     };
 
   }]);
@@ -140,9 +266,9 @@ angular.module('angularCmsBlox')
 
 /**
  * @ngdoc directive
- * @name www.directive:dnCms
+ * @name www.directive:cms
  * @description
- * # dnCms
+ * # cms
  */
 angular.module('angularCmsBlox')
 
@@ -198,222 +324,6 @@ angular.module('angularCmsBlox')
     // Public API here
     return {
       getPageText: getPageText
-    };
-
-  }]);
-
-'use strict';
-
-angular.module('angularCmsBlox')
-  .factory('Authservice', ['$cookieStore', 'ACCESS_LEVELS' ,function ($cookieStore, ACCESS_LEVELS) {
-
-    var _user = $cookieStore.get('user');
-    var _path;
-
-    var isAuthorized = function (lvl) {
-      if (_user) {
-        return _user.role >= lvl;
-      } else {
-        return false;
-      }
-    };
-
-    var setUser = function(user) {
-      if (!user.role || user.role < 0) {
-        user.role = ACCESS_LEVELS.pub;
-      }
-      _user = user;
-      $cookieStore.put('user', _user);
-    };
-
-    return {
-      isAuthorized: isAuthorized,
-      isLoggedIn: function () {
-        return _user ? true : false;
-      },
-      setUser: setUser,
-      getUser: function () {
-        return _user;
-      },
-      getToken: function () {
-        return _user ? _user.token : '';
-      },
-      setToken: function (token) {
-        if (_user) {
-          _user.token=token;
-        }
-      },
-      logout: function () {
-        $cookieStore.remove('user');
-        _user = null;
-      },
-      getPath: function() {
-        return _path;
-      },
-      setPath: function(path) {
-        _path = path;
-      }
-    };
-
-  }]);
-
-'use strict';
-
-//TODO lvb, authenticator part of cms? configurable?
-angular.module('angularCmsBlox')
-  .constant('ACCESS_LEVELS', {
-    pub: 1,
-    user: 2,
-    aso: 4,
-    dooner: 8,
-    root: 16
-  })
-  .config(function ($httpProvider) {
-
-    var requestInterceptor =
-      function ($q, $rootScope, Authservice, ACCESS_LEVELS) {
-        return {
-          'request': function (req) {
-
-            req.headers = req.headers || {};
-            if (Authservice.isAuthorized(ACCESS_LEVELS.user) && !req.headers.Authorization && req.url.indexOf('/oauth/token')===-1) {
-              console.log('Bearer headers added!');
-              req.headers.Authorization = 'Bearer '+ Authservice.getToken();
-            }
-
-            return req;
-          },
-          'requestError': function (reqErr) {
-            return reqErr;
-          }
-        };
-      };
-
-    var responseInterceptor =
-      function ($q, $rootScope, Authservice) {
-        return {
-          'response': function (resp) {
-            if (resp.config.url === '/oauth/token') {
-              Authservice.setToken(resp.data.access_token);
-            }
-            return resp;
-          },
-          'responseError': function (rejection) {
-            // Handle errors
-            switch (rejection.status) {
-              case 401:
-                if (rejection.config.url !== '/oauth/token') {
-                  $rootScope.$broadcast('auth:loginRequired');
-                }
-                break;
-              case 403:
-                $rootScope.$broadcast('auth:forbidden');
-                break;
-              case 404:
-                $rootScope.$broadcast('page:notFound');
-                break;
-              case 500:
-                $rootScope.$broadcast('server:error');
-                break;
-            }
-
-            return $q.reject(rejection);
-          }
-        };
-      };
-
-    $httpProvider.interceptors.push(requestInterceptor);
-    $httpProvider.interceptors.push(responseInterceptor);
-
-  })
-
-  .run(function ($rootScope, $location, Authservice, ACCESS_LEVELS) {
-
-    // Set a watch on the $routeChangeStart
-    $rootScope.$on('$stateChangeStart',
-      function (evt, next) {
-
-        if (next.accessLevel > ACCESS_LEVELS.pub) {
-          if (!Authservice.isAuthorized(next.accessLevel)) {
-            if (Authservice.isLoggedIn()) {
-              $location.path('/');
-            } else {
-              Authservice.setPath($location.path());
-              $location.path('/login');
-            }
-          }
-        }
-
-      });
-
-    $rootScope.$on('auth:loginRequired',
-      function () {
-        Authservice.setPath($location.path());
-        $location.path('/login');
-
-      });
-
-  })
-;
-
-'use strict';
-
-angular.module('angularCmsBlox')
-  .factory('Loginservice', ['$http', '$location', '$q', 'Authservice', 'ACCESS_LEVELS', function ($http, $location, $q, Authservice, ACCESS_LEVELS) {
-
-    var login = function (username, password) {
-
-      var deferred = $q.defer();
-
-      var url = $location.protocol() + '://' + $location.host() + ':' + $location.port() + '/oauth/token';
-
-      var xsrf = {
-        grant_type: 'password',
-        username: username,
-        password: password
-      };
-
-      $http({
-        method: 'POST',
-        url: url,
-        transformRequest: function(obj) {
-          var str = [];
-          for(var p in obj) {
-            str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]));
-          }
-          return str.join('&');
-        },
-        data: xsrf,
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      }).success(function (data) {
-
-        var user = {
-          role: ACCESS_LEVELS.user, //TODO lvb, rollen in backend overnermen.
-          username: username,
-          token: data.access_token
-        };
-
-        Authservice.setUser(user);
-
-        deferred.resolve(data);
-
-      }).catch(function (reason) {
-        deferred.reject(reason);
-      });
-
-      return deferred.promise;
-
-    };
-
-    var logoff = function() {
-      Authservice.logoff();
-    };
-
-    return {
-      login: login,
-      logoff: logoff
     };
 
   }]);

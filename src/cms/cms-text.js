@@ -16,7 +16,7 @@ angular.module('angularCmsBlox')
       scope: {
         key: '@cmsText'
       },
-      templateUrl: 'cms/cms-text.html',
+      templateUrl: 'cms/cms-text.template.html',
       controller: 'cmsTextController',
       controllerAs: 'ctrl',
       bindToController: true

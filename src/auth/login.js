@@ -9,7 +9,7 @@ angular.module('angularCmsBlox')
       replace: true,
       scope: {
       },
-      templateUrl: 'auth/login.html',
+      templateUrl: 'auth/login.template.html',
 
       controller: ['$auth', function($auth){
 

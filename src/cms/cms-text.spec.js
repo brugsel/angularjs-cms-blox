@@ -9,7 +9,7 @@ describe('Given the cms-text directive', function() {
   beforeEach(module('angularCmsBlox', function($provide, $controllerProvider) {
     $controllerProvider.register('cmsTextController', function ($scope) {
       $scope.text = 'Nederlandse text';
-      this.isLoggedIn = function() {
+      this.isAuthenticated = function() {
         return loggedIn;
       }
     });

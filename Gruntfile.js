@@ -55,7 +55,7 @@ module.exports = function (grunt) {
         files: [
           '<%= config.src %>/{,*/}*.html'
         ],
-        tasks: []
+        tasks: ['ngtemplates']
       },
       gruntfile: {
         files: ['Gruntfile.js']
@@ -70,6 +70,16 @@ module.exports = function (grunt) {
           '.tmp/styles/{,*/}*.css',
           '<%= config.assets %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
+      }
+    },
+
+    ngtemplates: {
+      'angularCmsBlox': {
+        src:      '<%= config.src %>/**/*.template.html',
+        dest:     '.tmp/src/angular-cms-blox-templates.js',
+        options:  {
+          url:    function(url) { return url.replace('src/', ''); }
+        }
       }
     },
 
@@ -262,6 +272,7 @@ module.exports = function (grunt) {
          files: {
            '.tmp/js/angular-cms-blox.js': [
              '<%= config.src %>/angular-cms-blox.js',
+             '.tmp/**/*.js',
              '<%= config.src %>/**/*.js',
              '!<%= config.src %>/**/*.mock.js',
              '!<%= config.src %>/**/*.spec.js'
@@ -367,13 +378,16 @@ module.exports = function (grunt) {
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
-        'less'
+        'less',
+        'ngtemplates'
       ],
       test: [
-        'less'
+        'less',
+        'ngtemplates'
       ],
       dist: [
         'less',
+        'ngtemplates',
         'imagemin',
         'svgmin'
       ]

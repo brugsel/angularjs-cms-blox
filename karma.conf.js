@@ -27,9 +27,11 @@ module.exports = function(config) {
       'bower_components/angular-translate/angular-translate.js',
       'bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js',
       'bower_components/angular-xeditable/dist/js/xeditable.js',
+      'bower_components/satellizer/satellizer.js',
       'src/*.js',
       'src/**/*.js',
-      'src/**/*.html'
+      'src/**/*.html',
+      '.tmp/src/angular-cms-blox-templates.js'
     ],
 
     // list of files / patterns to exclude

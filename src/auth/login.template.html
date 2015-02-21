@@ -1,0 +1,4 @@
+<div class="container">
+  <button ng-hide="ctrl.isAuthenticated()" ng-click="ctrl.authenticate('google')">Sign in with Google</button>
+  <button ng-show="ctrl.isAuthenticated()" ng-click="ctrl.logout()">Logout</button>
+</div>
