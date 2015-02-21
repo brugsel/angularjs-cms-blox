@@ -2,7 +2,7 @@
 
 angular.module('angularCmsBlox')
 
-  .directive('authLogin', [function () {
+  .directive('authLogin', ['$location', 'authService', function ($location, authService) {
 
     return {
       restrict: 'EA',
@@ -14,7 +14,11 @@ angular.module('angularCmsBlox')
       controller: ['$auth', function($auth){
 
         this.authenticate = function(provider) {
-          $auth.authenticate(provider);
+          $auth.authenticate(provider).then(function() {
+            if (authService.getPath()) {
+              $location.path(authService.getPath());
+            }
+          });
         };
 
         this.isAuthenticated = function() {

@@ -20,32 +20,20 @@
     <link rel="stylesheet" href="styles/angular-cms-blox.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="angularCmsBloxMock">
+  <body ng-app="angularCmsBloxDemo">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-
-
-
-
-
-
+    <h1>Demo usage of "angular-cms-blox"</h1>
+    <h2 cms-text="home.title"></h2>
 
     <div class="container">
-
-      <h1 cms-text="home.title"></h1>
-
-      <auth-login></auth-login>
-
+      <a href="/#!/login">Login</a> | <a href="/#!/secure">Secure</a>
     </div>
-
-
-
-
-
-
-
+    <br>
+    <!-- Add your site or application content here -->
+    <div ui-view=""></div>
 
     <!-- build:js(.) scripts/oldieshim.js -->
     <!--[if lt IE 9]>
@@ -68,6 +56,7 @@
     <script src="/bower_components/angular-xeditable/dist/js/xeditable.js"></script>
     <script src="/bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
     <script src="/bower_components/satellizer/satellizer.js"></script>
+    <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -82,17 +71,24 @@
     <script src="/src/angular-cms-blox.js"></script>
     <script src="/src/auth/auth.js"></script>
     <script src="/src/auth/auth.mock.js"></script>
+    <script src="/src/auth/auth.service.js"></script>
+    <script src="/src/auth/interceptor.js"></script>
     <script src="/src/auth/login.js"></script>
     <script src="/src/cms/cms-data-mock.js"></script>
     <script src="/src/cms/cms-text.js"></script>
     <script src="/src/cms/cms.js"></script>
     <script src="/src/cms/cms.mock.js"></script>
     <script src="/src/cms/cms.service.js"></script>
-    <script src="/src/security/authservice.js"></script>
-    <script src="/src/security/interceptor.js"></script>
-    <script src="/src/security/loginservice.js"></script>
     <!-- endinjector -->
     <!-- endbuild -->
+
+    <!-- demo dependencies -->
+    <script src="/src/angular-cms-blox.demo.js"></script>
+    <script src="/src/main/main.js"></script>
+    <script src="/src/secure/secure.js"></script>
+    <script src="/src/login/login.js"></script>
+    <!-- end -->
+
 
   </body>
 </html>
