@@ -47,6 +47,8 @@ module.exports = function (grunt) {
       },
       less: {
         files: [
+          '<%= config.demo %>/**/*.less',
+          '<%= config.src %>/**/*.less',
           '<%= config.demo %>/app.less',
           '<%= config.src %>/angular-cms-blox.less'
         ],

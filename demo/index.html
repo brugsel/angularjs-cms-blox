@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css" />
     <link rel="stylesheet" href="/bower_components/angular-xeditable/dist/css/xeditable.css" />
+    <link rel="stylesheet" href="/bower_components/bootstrap-social/bootstrap-social.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/app.css -->
@@ -25,15 +26,21 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-    <h1>Demo usage of "angular-cms-blox"</h1>
-    <h2 cms-text="home.title"></h2>
 
-    <div class="container">
-      <a href="/#!/login">Login</a> | <a href="/#!/secure">Secure</a>
-    </div>
-    <br>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <ul class="nav navbar-nav">
+          <li><a href="/#!/">Home</a></li>
+          <li><a href="/#!/secure">Secure</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="/#!/login">Authentication</a></li>
+        </ul>
+      </div>
+    </nav>
+
     <!-- Add your site or application content here -->
-    <div ui-view=""></div>
+    <div id="view" ui-view=""></div>
 
     <!-- build:js(.) scripts/oldieshim.js -->
     <!--[if lt IE 9]>
@@ -70,7 +77,6 @@
     <script src="/src/angular-cms-blox.mock.js"></script>
     <script src="/src/angular-cms-blox.js"></script>
     <script src="/src/auth/auth.js"></script>
-    <script src="/src/auth/auth.mock.js"></script>
     <script src="/src/auth/auth.service.js"></script>
     <script src="/src/auth/interceptor.js"></script>
     <script src="/src/auth/login.js"></script>
