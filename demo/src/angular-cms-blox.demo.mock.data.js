@@ -5,14 +5,12 @@ mockData.contentType = {'Content-type': 'application/json'};
 mockData.wwwHome =
 {
   '_id': {
-    '$oid': '54cb4c34e4b0b3c7e59d03a0'
+    '$oid': 'home.nl_NL'
   },
-  'site': 'www',
   'part': 'home',
   'lang': 'nl_NL',
   'home': {
-    'title': 'Mooie titel in het Nederlands!',
-    'subTitle': 'Nou dat!'
+    'title': 'Titel aanpasbaar na inlog'
   }
 };
 

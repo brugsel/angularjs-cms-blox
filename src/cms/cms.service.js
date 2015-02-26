@@ -2,26 +2,16 @@
 
 //TODO lvb, add cache for texts
 angular.module('angularCmsBlox')
-  .factory('cmsService', ['$resource', '$q', function ($resource, $q) {
+  .factory('cmsService', ['$resource', '$q', 'cmsConfig', function ($resource, $q, cmsConfig) {
 
-    //TOO lvb, make configurable
-    var CMS = $resource('/api/example/cms');
+    var CMS = $resource(cmsConfig.url+'/:id', {id: '@id'});
 
-    //TODO lvb, add language
-    var getPageText = function(site, page) {
+    var getPageText = function(page, language) {
       var defer = $q.defer();
 
-      var param = {
-        q: {
-          site: site,
-          page: page
-        },
-        f: {
-          text: 1
-        }
-      };
+      var id = page+'.'+language;
 
-      CMS.query(param, function(translations) {
+      CMS.get({id: id}, function(translations) {
         defer.resolve(translations);
       }, function(data) {
         defer.reject(data.status);
@@ -32,7 +22,8 @@ angular.module('angularCmsBlox')
 
     // Public API here
     return {
-      getPageText: getPageText
+      getPageText: getPageText,
+      savePageText: function(){}
     };
 
   }]);

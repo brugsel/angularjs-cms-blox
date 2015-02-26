@@ -2,7 +2,7 @@
 
 angular.module('angularCmsBloxMock').run(function ($httpBackend) {
 
-  $httpBackend.whenGET(/api\/example\/cms\/www.home.nl_NL/).respond(
+  $httpBackend.whenGET(/cms.www/).respond(
     function() {
       return [200, mockData.wwwHome, mockData.contentType];
     });
@@ -10,3 +10,4 @@ angular.module('angularCmsBloxMock').run(function ($httpBackend) {
   $httpBackend.whenGET(/.html$/).passThrough();
 
 });
+

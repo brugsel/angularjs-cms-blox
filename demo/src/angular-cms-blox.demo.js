@@ -6,12 +6,9 @@ angular.module('angularCmsBloxDemo',['angularCmsBloxMock', 'ui.router'])
     $locationProvider.html5Mode(false).hashPrefix('!');
   })
 
-  .config(['$translateProvider','$translatePartialLoaderProvider', function($translateProvider, $translatePartialLoaderProvider) {
+  .config(['cmsConfigProvider', function(cmsConfigProvider){
 
-    $translateProvider.preferredLanguage('nl_NL');
-    $translateProvider.useLoader('$translatePartialLoader', {
-      urlTemplate: '/api/example/cms/www.{part}.{lang}'
-    });
-    $translatePartialLoaderProvider.addPart('home');
+    cmsConfigProvider.setPreferredLanguage('nl_NL');
+    cmsConfigProvider.setUrl('http://api.cms.org/api/sandbox/angular/catalog/cms.www');
 
   }]);

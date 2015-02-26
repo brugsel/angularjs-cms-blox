@@ -7,6 +7,14 @@ describe('Given the CMS service ', function () {
 
   beforeEach(module('angularCmsBlox'));
 
+  beforeEach(module(function($provide) {
+    $provide.factory('cmsConfig', function() {
+      return {
+        url: '/cms'
+      };
+    });
+  }));
+
   beforeEach(inject(function ($httpBackend, cmsService) {
 
     _httpBackend = $httpBackend;
@@ -16,22 +24,19 @@ describe('Given the CMS service ', function () {
 
   it('should return translations of a part of a site', function() {
 
-    _httpBackend.whenGET('/api/example/cms?f=%7B%22text%22:1%7D&q=%7B%22site%22:%22www%22,%22page%22:%22home%22%7D').respond(200, mockData.wwwArray, mockData.contentType);
+    _httpBackend.whenGET(/cms/).respond(
+      function() {
+        return [200,
+          {
+            'home': {
+              'title': 'Title!'
+            }
+          }
+          , "{'Content-type': 'application/json'}"];
+      });
 
-    _service.getPageText('www', 'home').then(function(translations) {
-      expect(translations[0].home.title).toBe('Mooie titel in het Nederlands!');
-    });
-
-    _httpBackend.flush();
-
-  });
-
- it('should return a http 404 when site is not found', function() {
-
-    _httpBackend.whenGET('/api/example/cms?f=%7B%22text%22:1%7D&q=%7B%22site%22:%22unknown%22,%22page%22:%22home%22%7D').respond(404, [], mockData.contentType);
-
-    _service.getPageText('unknown', 'home').then(function() {}, function(status) {
-      expect(status).toBe(404);
+    _service.getPageText('home', 'nl_NL').then(function(translations) {
+      expect(translations.home.title).toBe('Title!');
     });
 
     _httpBackend.flush();

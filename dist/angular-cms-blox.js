@@ -104,9 +104,6 @@ angular.module('angularCmsBlox')
       function ($q, $rootScope) {
         return {
           'response': function (resp) {
-
-            console.log('URL: ' + resp.config.url);
-
             return resp;
           },
           'responseError': function (rejection) {

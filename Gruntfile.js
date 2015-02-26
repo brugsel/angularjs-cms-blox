@@ -33,7 +33,8 @@ module.exports = function (grunt) {
           '<%= config.src %>/{,*/}*.js',
           '<%= config.demo %>/{,*/}*.js',
           '<%= config.src %>/{,*/}*.spec.js',
-          '<%= config.demo %>/{,*/}*.mock.js'
+          '<%= config.demo %>/{,*/}*.mock.js',
+          '<%= config.demo %>/{,*/}*.data.js'
         ],
         tasks: ['newer:jshint:all','injector'],
         options: {
@@ -158,7 +159,8 @@ module.exports = function (grunt) {
           'Gruntfile.js',
           '<%= config.src %>/{,*/}*.js',
           '!<%= config.src %>/{,*/}*.spec.js',
-          '!<%= config.src %>/{,*/}*.mock.js'
+          '!<%= config.src %>/{,*/}*.mock.js',
+          '!<%= config.src %>/{,*/}*.data.js'
         ]
       },
       test: {
@@ -215,6 +217,7 @@ module.exports = function (grunt) {
         files: {
           '<%= config.demo %>/index.html':
             [
+              '<%= config.src %>/angular-cms-blox.mock.data.js',
               '<%= config.src %>/angular-cms-blox.mock.js',
               '<%= config.src %>/angular-cms-blox.js',
               '<%= config.src %>/**/*.js',
