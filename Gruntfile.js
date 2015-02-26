@@ -473,8 +473,7 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'usemin',
-    'htmlmin',
-    'ngdocs'
+    'htmlmin'
   ]);
 
   grunt.registerTask('default', [
