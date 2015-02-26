@@ -10,9 +10,63 @@ angular.module('angularCmsBlox').run(['$templateCache', function($templateCache)
   'use strict';
 
   $templateCache.put('auth/login.template.html',
-    "<div class=\"container\">\n" +
-    "  <button ng-hide=\"ctrl.isAuthenticated()\" ng-click=\"ctrl.authenticate('google')\">Sign in with Google</button>\n" +
-    "  <button ng-show=\"ctrl.isAuthenticated()\" ng-click=\"ctrl.logout()\">Logout</button>\n" +
+    "<div class=\"auth-login\">\n" +
+    "\n" +
+    "  <div ng-hide=\"ctrl.isAuthenticated()\">\n" +
+    "    <h3>Sign in with:</h3>\n" +
+    "\n" +
+    "    <div class=\"container\">\n" +
+    "      <a class=\"btn btn-block btn-social btn-google-plus\" ng-click=\"ctrl.authenticate('google')\">\n" +
+    "        <i class=\"fa fa-google\"></i> Google\n" +
+    "      </a>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div class=\"row\">\n" +
+    "      <div class=\"col-md-5\"></div>\n" +
+    "      <div class=\"col-md-2 center\">or</div>\n" +
+    "      <div class=\"col-md-5\"></div>\n" +
+    "    </div>\n" +
+    "\n" +
+    "    <div class=\"container\">\n" +
+    "      <form role=\"form\">\n" +
+    "\n" +
+    "        <div class=\"form-group input-group\">\n" +
+    "          <span class=\"input-group-addon\" id=\"email-addon\"><i class=\"fa fa-envelope addon\"></i></span>\n" +
+    "          <input type=\"text\" class=\"form-control\" id=\"email\" ng-model=\"ctrl.loginForm.email\" aria-describedby=\"email-addon\" placeholder=\"email address\">\n" +
+    "        </div>\n" +
+    "        <div class=\"form-group input-group\">\n" +
+    "          <span class=\"input-group-addon\" id=\"password-addon\"><i class=\"fa fa-lock addon\"></i></span>\n" +
+    "          <input type=\"password\" class=\"form-control\" id=\"pwd\" ng-model=\"ctrl.loginForm.password\" aria-describedby=\"password-addon\" placeholder=\"password\">\n" +
+    "        </div>\n" +
+    "        <div ng-hide=\"ctrl.isLogin\" class=\"form-group input-group\">\n" +
+    "          <span class=\"input-group-addon\" id=\"password-check-addon\"><i class=\"fa fa-lock addon\"></i></span>\n" +
+    "          <input type=\"password\" class=\"form-control\" id=\"pwd-check\" ng-model=\"ctrl.loginForm.passwordCheck\" aria-describedby=\"password-check-addon\" placeholder=\"password (confirm)\">\n" +
+    "        </div>\n" +
+    "        <a ng-show=\"ctrl.isLogin\" class=\"btn btn-block btn-primary\" ng-click=\"ctrl.login()\">\n" +
+    "          Sign in with Email\n" +
+    "        </a>\n" +
+    "        <a ng-hide=\"ctrl.isLogin\" class=\"btn btn-block btn-primary\" ng-click=\"ctrl.signup()\">\n" +
+    "          Sign up with Email\n" +
+    "        </a>\n" +
+    "        <a ng-click=\"ctrl.switch()\">Or signup first</a>\n" +
+    "      </form>\n" +
+    "    </div>\n" +
+    "  </div>\n" +
+    "\n" +
+    "  <div ng-show=\"ctrl.isAuthenticated()\">\n" +
+    "    <h3>Logout</h3>\n" +
+    "\n" +
+    "    <div class=\"container\">\n" +
+    "      <a class=\"btn btn-block btn-primary\" ng-click=\"ctrl.logout()\">\n" +
+    "        Logout\n" +
+    "      </a>\n" +
+    "      <a class=\"btn btn-block btn-default\" ng-click=\"ctrl.cancel()\">\n" +
+    "        Cancel\n" +
+    "      </a>\n" +
+    "    </div>\n" +
+    "\n" +
+    "  </div>\n" +
+    "\n" +
     "</div>\n"
   );
 
@@ -176,6 +230,11 @@ angular.module('angularCmsBlox')
 
       controller: ['$auth', function($auth){
 
+        this.loginForm = {
+        };
+
+        this.isLogin = true;
+
         this.authenticate = function(provider) {
           $auth.authenticate(provider).then(function() {
             if (authService.getPath()) {
@@ -190,8 +249,8 @@ angular.module('angularCmsBlox')
 
         this.login = function() {
           $auth.login({
-            email: this.email,
-            password: this.password
+            email: this.loginForm.email,
+            password: this.loginForm.password
           });
         };
 
@@ -199,13 +258,29 @@ angular.module('angularCmsBlox')
           $auth.logout();
         };
 
-        this.login = function() {
+        this.signup = function() {
           $auth.signup({
-            email: this.email,
-            password: this.password
+            email: this.loginForm.email,
+            password: this.loginForm.password
           }).then(function (response) {
             console.log(response.data);
           });
+        };
+
+        this.cancel = function() {
+          if (authService.getPath()) {
+            $location.path(authService.getPath());
+          } else {
+            $location.path('/');
+          }
+        };
+
+        this.switch = function() {
+          if (this.isLogin) {
+            this.isLogin = false;
+          } else {
+            this.isLogin = true;
+          }
         };
 
       }],
