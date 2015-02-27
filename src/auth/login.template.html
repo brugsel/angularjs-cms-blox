@@ -1,7 +1,10 @@
 <div class="auth-login">
 
   <div ng-hide="ctrl.isAuthenticated()">
-    <h3>Sign in with:</h3>
+
+    <div class="container">
+      <h3 cms-text="auth.title"></h3>
+    </div>
 
     <div class="container">
       <a class="btn btn-block btn-social btn-google-plus" ng-click="ctrl.authenticate('google')">
@@ -9,10 +12,11 @@
       </a>
     </div>
 
-    <div class="row">
-      <div class="col-md-5"></div>
-      <div class="col-md-2 center">or</div>
-      <div class="col-md-5"></div>
+    <div class="container">
+      <div class="signup-or-separator">
+        <h6 class="text" cms-text="auth.or"></h6>
+        <hr>
+      </div>
     </div>
 
     <div class="container">
@@ -20,24 +24,30 @@
 
         <div class="form-group input-group">
           <span class="input-group-addon" id="email-addon"><i class="fa fa-envelope addon"></i></span>
-          <input type="text" class="form-control" id="email" ng-model="ctrl.loginForm.email" aria-describedby="email-addon" placeholder="email address">
+          <input type="text" class="form-control" id="email" ng-model="ctrl.loginForm.email" aria-describedby="email-addon" placeholder="{{'auth.email' | translate}}">
         </div>
         <div class="form-group input-group">
           <span class="input-group-addon" id="password-addon"><i class="fa fa-lock addon"></i></span>
-          <input type="password" class="form-control" id="pwd" ng-model="ctrl.loginForm.password" aria-describedby="password-addon" placeholder="password">
+          <input type="password" class="form-control" id="pwd" ng-model="ctrl.loginForm.password" aria-describedby="password-addon" placeholder="{{'auth.password' | translate}}">
         </div>
-        <div ng-hide="ctrl.isLogin" class="form-group input-group">
-          <span class="input-group-addon" id="password-check-addon"><i class="fa fa-lock addon"></i></span>
-          <input type="password" class="form-control" id="pwd-check" ng-model="ctrl.loginForm.passwordCheck" aria-describedby="password-check-addon" placeholder="password (confirm)">
+        <div ng-hide="ctrl.isLogin">
+          <div class="form-group input-group animate">
+            <span class="input-group-addon" id="password-check-addon"><i class="fa fa-lock addon"></i></span>
+            <input type="password" class="form-control" id="pwd-check" ng-model="ctrl.loginForm.passwordCheck" aria-describedby="password-check-addon" placeholder="{{'auth.password-confirm' | translate}}">
+          </div>
         </div>
-        <a ng-show="ctrl.isLogin" class="btn btn-block btn-primary" ng-click="ctrl.login()">
-          Sign in with Email
-        </a>
-        <a ng-hide="ctrl.isLogin" class="btn btn-block btn-primary" ng-click="ctrl.signup()">
-          Sign up with Email
-        </a>
-        <a ng-click="ctrl.switch()">Or signup first</a>
       </form>
+        <a ng-show="ctrl.isLogin" class="btn btn-block btn-primary" ng-click="ctrl.login()" cms-text="auth.login"></a>
+        <a ng-hide="ctrl.isLogin" class="btn btn-block btn-primary" ng-click="ctrl.signup()" cms-text="auth.signup"></a>
+      <div class="row">
+        <div class="col-md-6">
+          <a class="pull-left" ng-click="ctrl.switch()" cms-text="auth.signup"></a>
+        </div>
+        <div class="col-md-6">
+          <a class="pull-right" onclick="alert('Not implemented yet!')" cms-text="auth.lost"></a>
+        </div>
+      </div>
+
     </div>
   </div>
 

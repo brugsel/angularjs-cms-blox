@@ -87,32 +87,16 @@ angular.module('angularCmsBlox').run(['$templateCache', function($templateCache)
  */
 angular.module('angularCmsBlox')
 
-  .config(function($authProvider) {
+  .config([function() {
 
-    $authProvider.google({
-      clientId: '402827681397-4bud9sjicgcshr9i5d6b1u9rmqccp3km.apps.googleusercontent.com',
-      url: 'http://localhost:3000/auth/google',
-      authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
-      redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host,
-      scope: ['profile', 'email'],
-      scopePrefix: 'openid',
-      scopeDelimiter: ' ',
-      requiredUrlParams: ['scope'],
-      optionalUrlParams: ['display'],
-      display: 'popup',
-      type: '2.0',
-      popupOptions: { width: 580, height: 400 }
-    });
-
-  });
+  }]);
 
 'use strict';
 
 angular.module('angularCmsBlox')
-  .factory('authService', ['$resource', function ($resource) {
+  .factory('authService', ['$resource', 'cmsConfig', function ($resource, cmsConfig) {
 
-    //TOO lvb, make configurable
-    var Me = $resource('/auth/me');
+    var Me = $resource(cmsConfig.profileUrl);
     var me;
     var path;
 
@@ -389,19 +373,45 @@ angular.module('angularCmsBlox')
  * @description
  * # config
  */
-angular.module('angularCmsBlox').provider('cmsConfig', ['$translateProvider','$translatePartialLoaderProvider', function ($translateProvider, $translatePartialLoaderProvider) {
+angular.module('angularCmsBlox').provider('cmsConfig', ['$translateProvider','$translatePartialLoaderProvider', '$authProvider', function ($translateProvider, $translatePartialLoaderProvider, $authProvider) {
+
+  // Cors without credentials
+  $authProvider.withCredentials = false;
 
   this.setPreferredLanguage = function(language) {
     this.preferredLanguage = language || 'nl_NL';
     $translateProvider.preferredLanguage(this.preferredLanguage);
   };
 
-  this.setUrl = function(url) {
+  this.setCmsUrl = function(url) {
     this.url = url || '/api/example/cms';
     $translateProvider.useLoader('$translatePartialLoader', {
-      urlTemplate: this.url+ '/{part}.{lang}'
+      urlTemplate: this.url+ '/'+'{part}.{lang}'
     });
     $translatePartialLoaderProvider.addPart('home');
+  };
+
+  this.setGoogleConfig = function(google) {
+
+    $authProvider.google(google || {
+      clientId: '402827681397-4bud9sjicgcshr9i5d6b1u9rmqccp3km.apps.googleusercontent.com',
+      url: 'http://localhost:3000/auth/google',
+      authorizationEndpoint: 'https://accounts.google.com/o/oauth2/auth',
+      redirectUri: window.location.origin || window.location.protocol + '//' + window.location.host,
+      scope: ['profile', 'email'],
+      scopePrefix: 'openid',
+      scopeDelimiter: ' ',
+      requiredUrlParams: ['scope'],
+      optionalUrlParams: ['display'],
+      display: 'popup',
+      type: '2.0',
+      popupOptions: { width: 580, height: 400 }
+    });
+
+  };
+
+  this.setProfileUrl = function(url) {
+    this.profileUrl = url || '/auth/me';
   };
 
   this.$get = function () {

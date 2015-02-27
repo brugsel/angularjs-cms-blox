@@ -70,6 +70,8 @@ module.exports = function (grunt) {
         files: [
           '<%= config.demo %>/{,*/}*.html',
           '<%= config.src %>/{,*/}*.html',
+          '<%= config.demo %>/{,*/}*.less',
+          '<%= config.src %>/{,*/}*.less',
           '.tmp/styles/{,*/}*.css',
           '<%= config.assets %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
@@ -106,6 +108,10 @@ module.exports = function (grunt) {
                 connect.static('./bower_components')
               ),
               connect().use(
+                '/fonts',
+                connect.static('./bower_components/font-awesome/fonts')
+              ),
+              connect().use(
                 '/',
                 connect.static('./src')
               ),
@@ -128,6 +134,10 @@ module.exports = function (grunt) {
               connect().use(
                 '/bower_components',
                 connect.static('./bower_components')
+              ),
+              connect().use(
+                '/fonts',
+                connect.static('./bower_components/font-awesome/fonts')
               ),
               connect().use(
                 '/',

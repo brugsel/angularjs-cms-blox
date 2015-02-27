@@ -2,9 +2,14 @@
 
 angular.module('angularCmsBloxMock').run(function ($httpBackend) {
 
-  $httpBackend.whenGET(/cms.www/).respond(
+  $httpBackend.whenGET(/cms_www\/home.nl_NL/).respond(
     function() {
       return [200, mockData.wwwHome, mockData.contentType];
+    });
+
+  $httpBackend.whenGET(/cms_www\/auth.nl_NL/).respond(
+    function() {
+      return [200, mockData.wwwAuth, mockData.contentType];
     });
 
   $httpBackend.whenPOST(/auth\/signup/).respond(

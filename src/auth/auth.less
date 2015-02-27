@@ -1,10 +1,44 @@
 .auth-login {
+
   .addon {
     width: 12px;
   }
 
-  .center {
+  @duration: 0.2s;
+
+  .animate {
+      -webkit-animation: slideInDown @duration;
+      -moz-animation: slideInDown @duration;
+      -o-animation: slideInDown @duration;
+      animation: slideInDown @duration;
+    }
+
+  .animate.ng-hide {
+      -webkit-animation: slideOutUp @duration;
+      -moz-animation: slideOutUp @duration;
+      -o-animation: slideOutUp @duration;
+      animation: slideOutUp @duration;
+    }
+
+  .signup-or-separator {
     margin: 10px;
+    position: relative;
+    height: 34px;
     text-align: center;
+    background: none;
   }
+
+  .signup-or-separator hr {
+    width: 100%;
+    margin: -16px auto 10px auto;
+    border-top: 1px solid #dce0e0;
+  }
+
+  .signup-or-separator .text {
+    display: inline-block;
+    padding: 10px;
+    margin: 0;
+    background-color: #fff;
+  }
+
 }

@@ -16,6 +16,22 @@ mockData.wwwHome =
   }
 };
 
+mockData.wwwAuth = {
+  "_id": "auth.nl_NL",
+  "part": "auth",
+  "language": "nl_NL",
+  "auth": {
+    "title": "Login met",
+    "or": "of",
+    "email": "e-mail",
+    "password": "wachtwoord",
+    "password-confirm": "wachtwoord bevestigen",
+    "login": "log in",
+    "signup": "aanmelden",
+    "lost": "wachtwoord vergeten"
+  }
+};
+
 mockData.wwwArray = [
   mockData.wwwHome
 ];

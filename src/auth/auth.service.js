@@ -1,10 +1,9 @@
 'use strict';
 
 angular.module('angularCmsBlox')
-  .factory('authService', ['$resource', function ($resource) {
+  .factory('authService', ['$resource', 'cmsConfig', function ($resource, cmsConfig) {
 
-    //TOO lvb, make configurable
-    var Me = $resource('/auth/me');
+    var Me = $resource(cmsConfig.profileUrl);
     var me;
     var path;
 
