@@ -24,14 +24,18 @@ angular.module('angularCmsBlox')
 
   }])
 
-  .controller('cmsTextController', ['$translate', '$scope', '$auth', function($translate, $scope, $auth){
+  .controller('cmsTextController', ['$translate', '$scope', '$auth', 'cmsService', function($translate, $scope, $auth, cmsService){
+
+    $scope.key = this.key;
 
     $translate(this.key).then(function (translation) {
       $scope.text = translation;
+      $scope.cols = $scope.text.length>100?100:$scope.text.length;
+      $scope.rows = Math.ceil($scope.text.length/$scope.cols)+1;
     });
 
     this.save = function() {
-      //TODO lvb, implement
+      cmsService.savePageText($scope.key, $scope.text);
     };
 
     this.isAuthenticated = function() {

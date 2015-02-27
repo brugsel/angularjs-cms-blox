@@ -10,6 +10,14 @@ angular.module('angularCmsBlox').provider('cmsConfig', ['$translateProvider','$t
 
   // Cors without credentials
   $authProvider.withCredentials = false;
+  // Switch caching on for translations
+  $translateProvider.useLoaderCache(true);
+
+  this.loginPath = '/login';
+
+  this.setLoginPath = function(path) {
+    this.loginPath = path;
+  };
 
   this.setPreferredLanguage = function(language) {
     this.preferredLanguage = language || 'nl_NL';

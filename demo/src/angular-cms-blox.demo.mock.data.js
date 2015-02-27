@@ -12,7 +12,8 @@ mockData.wwwHome =
   'part': 'home',
   'lang': 'nl_NL',
   'home': {
-    'title': 'Titel aanpasbaar na inlog'
+    'title': 'Titel aanpasbaar na inlog',
+    "intro": "Welkom op de demo pagina van de angular-cms-blox. Op deze pagina is een voorbeeld te zien hoe de texten aangepast kunnen worden na inlog."
   }
 };
 
@@ -27,6 +28,7 @@ mockData.wwwAuth = {
     "password": "wachtwoord",
     "password-confirm": "wachtwoord bevestigen",
     "login": "log in",
+    "logout": "log uit",
     "signup": "aanmelden",
     "lost": "wachtwoord vergeten"
   }
