@@ -24,7 +24,7 @@ angular.module('angularCmsBlox')
 
   }])
 
-  .controller('cmsTextController', ['$translate', '$scope', '$auth', 'cmsService', function($translate, $scope, $auth, cmsService){
+  .controller('cmsTextController', ['$translate', '$scope', 'authService', 'cmsService', function($translate, $scope, authService, cmsService){
 
     $scope.key = this.key;
 
@@ -39,7 +39,7 @@ angular.module('angularCmsBlox')
     };
 
     this.isAuthenticated = function() {
-      return $auth.isAuthenticated();
+      return authService.isAuthenticated();
     };
 
   }]);

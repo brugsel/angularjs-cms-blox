@@ -43,13 +43,13 @@ angular.module('angularCmsBlox')
 
   })
 
-  .run(['$rootScope','$location','$auth','authService','ACCESS_LEVELS', function ($rootScope, $location, $auth, authService, ACCESS_LEVELS) {
+  .run(['$rootScope','$location','authService','ACCESS_LEVELS', function ($rootScope, $location, authService, ACCESS_LEVELS) {
 
     // Set a watch on the $stateChangeStart
     $rootScope.$on('$stateChangeStart', function (evt, next) {
 
       if (next.accessLevel > ACCESS_LEVELS.pub) {
-        if ($auth.isAuthenticated()) {
+        if (authService.isAuthenticated()) {
 
           authService.isAuthorized(next.accessLevel, function(authorized) {
             if (!authorized) {

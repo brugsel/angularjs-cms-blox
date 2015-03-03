@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('angularCmsBlox')
-  .factory('authService', ['$resource', 'cmsConfig', function ($resource, cmsConfig) {
+  .factory('authService', ['$resource', '$auth', 'cmsConfig', function ($resource, $auth, cmsConfig) {
 
     var Me = $resource(cmsConfig.profileUrl);
     var me;
@@ -19,9 +19,19 @@ angular.module('angularCmsBlox')
       });
     };
 
+    var isAuthenticated = function() {
+      return $auth.isAuthenticated();
+    };
+
+    var logout = function() {
+      $auth.logout();
+    };
+
     // Public API here
     return {
       isAuthorized: isAuthorized,
+      isAuthenticated: isAuthenticated,
+      logout: logout,
       getPath: function() {
         return path;
       },

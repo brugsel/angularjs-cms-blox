@@ -23,7 +23,7 @@ angular.module('angularCmsBlox')
 
   }])
 
-  .controller('cmsControlPanelController', ['$scope', 'cmsService', '$auth', '$timeout', function($scope, cmsService, $auth, $timeout){
+  .controller('cmsControlPanelController', ['$scope', 'cmsService', 'authService', '$timeout', function($scope, cmsService, authService, $timeout){
 
     this.panel = false;
 
@@ -32,7 +32,7 @@ angular.module('angularCmsBlox')
     };
 
     this.isAuthenticated = function() {
-      return $auth.isAuthenticated();
+      return authService.isAuthenticated();
     };
 
     this.undo = function() {

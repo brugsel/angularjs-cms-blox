@@ -11,14 +11,14 @@ angular.module('angularCmsBlox')
       },
       templateUrl: 'auth/buttons.template.html',
 
-      controller: ['$auth', 'cmsConfig', function($auth, cmsConfig){
+      controller: ['authService', 'cmsConfig', function(authService, cmsConfig){
 
         this.isAuthenticated = function() {
-          return $auth.isAuthenticated();
+          return authService.isAuthenticated();
         };
 
         this.logout = function() {
-          $auth.logout();
+          authService.logout();
         };
 
         this.loginPath = cmsConfig.loginPath;
