@@ -2,11 +2,12 @@
 
 //TODO lvb, add cache for texts
 angular.module('angularCmsBlox')
-  .factory('cmsService', ['$resource', '$q', '$translate', 'cmsConfig', function ($resource, $q, $translate, cmsConfig) {
+  .factory('cmsService', ['$resource', '$q', '$translate', '$window', 'cmsConfig', function ($resource, $q, $translate, $window, cmsConfig) {
 
     var CMS = $resource(cmsConfig.url+'/:id', {id: '@id'});
 
     var unPublished;
+    var currentLanguage;
 
     var dotSet = function (exp, value, scope) {
       var levels = exp.split('.');
@@ -43,9 +44,9 @@ angular.module('angularCmsBlox')
     var savePageText = function(key, text) {
 
       var part = key.split('.')[0];
-      var language = $translate.preferredLanguage();
+      currentLanguage = $translate.preferredLanguage();
 
-      getPageText(part, language).then(function(translations) {
+      getPageText(part, currentLanguage).then(function(translations) {
         dotSet(key, text, translations);
         unPublished = translations;
       });
@@ -53,16 +54,25 @@ angular.module('angularCmsBlox')
     };
 
     var publishText = function() {
-      CMS.save(unPublished, function() {
-        $translate.refresh();
-      });
 
+      var defer = $q.defer();
+      CMS.save(unPublished, function() {
+        $translate.refresh(currentLanguage);
+        defer.resolve();
+      });
+      return defer.promise;
+    };
+
+    var undoText = function() {
+      $translate.refresh(currentLanguage);
+      $window.location.reload();
     };
 
     return {
       getPageText: getPageText,
       savePageText: savePageText,
-      publishText: publishText
+      publishText: publishText,
+      undoText: undoText
     };
 
   }]);
