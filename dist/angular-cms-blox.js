@@ -4,16 +4,27 @@
  * @name
  * @description
  */
-angular.module('angularCmsBlox',['ngResource', 'ngCookies', 'satellizer', 'pascalprecht.translate', 'xeditable']);
+angular.module('angularCmsBlox',['ngResource', 'ngCookies', 'ngAnimate', 'satellizer', 'pascalprecht.translate', 'xeditable']);
 
 angular.module('angularCmsBlox').run(['$templateCache', function($templateCache) {
   'use strict';
+
+  $templateCache.put('auth/buttons.template.html',
+    "<ul class=\"auth-buttons nav navbar-nav navbar-right\">\n" +
+    "    <li ng-hide=\"ctrl.isAuthenticated()\"><a href=\"/#!{{ctrl.loginPath}}\">{{'auth.login' | translate}}</a></li>\n" +
+    "    <li ng-show=\"ctrl.isAuthenticated()\"><a ng-click=\"ctrl.logout()\">{{'auth.logout' | translate}}</a></li>\n" +
+    "</ul>\n"
+  );
+
 
   $templateCache.put('auth/login.template.html',
     "<div class=\"auth-login\">\n" +
     "\n" +
     "  <div ng-hide=\"ctrl.isAuthenticated()\">\n" +
-    "    <h3>Sign in with:</h3>\n" +
+    "\n" +
+    "    <div class=\"container\">\n" +
+    "      <h3 cms-text=\"auth.title\"></h3>\n" +
+    "    </div>\n" +
     "\n" +
     "    <div class=\"container\">\n" +
     "      <a class=\"btn btn-block btn-social btn-google-plus\" ng-click=\"ctrl.authenticate('google')\">\n" +
@@ -21,10 +32,11 @@ angular.module('angularCmsBlox').run(['$templateCache', function($templateCache)
     "      </a>\n" +
     "    </div>\n" +
     "\n" +
-    "    <div class=\"row\">\n" +
-    "      <div class=\"col-md-5\"></div>\n" +
-    "      <div class=\"col-md-2 center\">or</div>\n" +
-    "      <div class=\"col-md-5\"></div>\n" +
+    "    <div class=\"container\">\n" +
+    "      <div class=\"signup-or-separator\">\n" +
+    "        <h6 class=\"text\" cms-text=\"auth.or\"></h6>\n" +
+    "        <hr>\n" +
+    "      </div>\n" +
     "    </div>\n" +
     "\n" +
     "    <div class=\"container\">\n" +
@@ -32,24 +44,30 @@ angular.module('angularCmsBlox').run(['$templateCache', function($templateCache)
     "\n" +
     "        <div class=\"form-group input-group\">\n" +
     "          <span class=\"input-group-addon\" id=\"email-addon\"><i class=\"fa fa-envelope addon\"></i></span>\n" +
-    "          <input type=\"text\" class=\"form-control\" id=\"email\" ng-model=\"ctrl.loginForm.email\" aria-describedby=\"email-addon\" placeholder=\"email address\">\n" +
+    "          <input type=\"text\" class=\"form-control\" id=\"email\" ng-model=\"ctrl.loginForm.email\" aria-describedby=\"email-addon\" placeholder=\"{{'auth.email' | translate}}\">\n" +
     "        </div>\n" +
     "        <div class=\"form-group input-group\">\n" +
     "          <span class=\"input-group-addon\" id=\"password-addon\"><i class=\"fa fa-lock addon\"></i></span>\n" +
-    "          <input type=\"password\" class=\"form-control\" id=\"pwd\" ng-model=\"ctrl.loginForm.password\" aria-describedby=\"password-addon\" placeholder=\"password\">\n" +
+    "          <input type=\"password\" class=\"form-control\" id=\"pwd\" ng-model=\"ctrl.loginForm.password\" aria-describedby=\"password-addon\" placeholder=\"{{'auth.password' | translate}}\">\n" +
     "        </div>\n" +
-    "        <div ng-hide=\"ctrl.isLogin\" class=\"form-group input-group\">\n" +
-    "          <span class=\"input-group-addon\" id=\"password-check-addon\"><i class=\"fa fa-lock addon\"></i></span>\n" +
-    "          <input type=\"password\" class=\"form-control\" id=\"pwd-check\" ng-model=\"ctrl.loginForm.passwordCheck\" aria-describedby=\"password-check-addon\" placeholder=\"password (confirm)\">\n" +
+    "        <div ng-hide=\"ctrl.isLogin\">\n" +
+    "          <div class=\"form-group input-group animate\">\n" +
+    "            <span class=\"input-group-addon\" id=\"password-check-addon\"><i class=\"fa fa-lock addon\"></i></span>\n" +
+    "            <input type=\"password\" class=\"form-control\" id=\"pwd-check\" ng-model=\"ctrl.loginForm.passwordCheck\" aria-describedby=\"password-check-addon\" placeholder=\"{{'auth.password-confirm' | translate}}\">\n" +
+    "          </div>\n" +
     "        </div>\n" +
-    "        <a ng-show=\"ctrl.isLogin\" class=\"btn btn-block btn-primary\" ng-click=\"ctrl.login()\">\n" +
-    "          Sign in with Email\n" +
-    "        </a>\n" +
-    "        <a ng-hide=\"ctrl.isLogin\" class=\"btn btn-block btn-primary\" ng-click=\"ctrl.signup()\">\n" +
-    "          Sign up with Email\n" +
-    "        </a>\n" +
-    "        <a ng-click=\"ctrl.switch()\">Or signup first</a>\n" +
     "      </form>\n" +
+    "        <a ng-show=\"ctrl.isLogin\" class=\"btn btn-block btn-primary\" ng-click=\"ctrl.login()\" cms-text=\"auth.login\"></a>\n" +
+    "        <a ng-hide=\"ctrl.isLogin\" class=\"btn btn-block btn-primary\" ng-click=\"ctrl.signup()\" cms-text=\"auth.signup\"></a>\n" +
+    "      <div class=\"row\">\n" +
+    "        <div class=\"col-md-6\">\n" +
+    "          <a class=\"pull-left\" ng-click=\"ctrl.switch()\" cms-text=\"auth.signup\"></a>\n" +
+    "        </div>\n" +
+    "        <div class=\"col-md-6\">\n" +
+    "          <a class=\"pull-right\" onclick=\"alert('Not implemented yet!')\" cms-text=\"auth.lost\"></a>\n" +
+    "        </div>\n" +
+    "      </div>\n" +
+    "\n" +
     "    </div>\n" +
     "  </div>\n" +
     "\n" +
@@ -71,13 +89,63 @@ angular.module('angularCmsBlox').run(['$templateCache', function($templateCache)
   );
 
 
+  $templateCache.put('cms/cms-control-panel.template.html',
+    "<div class=\"cms-control-panel\" ng-show=\"ctrl.isAuthenticated()\">\n" +
+    "\n" +
+    "    <div class=\"panel-button pull-right\"><i class=\"fa fa-2x fa-cog\" ng-click=\"ctrl.showPanel()\"></i></div>\n" +
+    "\n" +
+    "    <div class=\"panel-widget\" ng-show=\"ctrl.panel\">\n" +
+    "        <i class=\"fa fa-2x fa-save\" ng-click=\"ctrl.save()\" ng-hide=\"saved\"></i>\n" +
+    "        <i class=\"fa fa-2x fa-ellipsis-h\" ng-show=\"saved\"></i>\n" +
+    "        <i class=\"fa fa-2x fa-undo\" ng-click=\"ctrl.undo()\"></i>\n" +
+    "    </div>\n" +
+    "\n" +
+    "</div>\n"
+  );
+
+
   $templateCache.put('cms/cms-text.template.html',
-    "<span translate-cloak editable-text=\"text\" onaftersave=\"ctrl.save()\" e-form=\"textBtnForm\">\n" +
+    "<span translate-cloak editable-textarea=\"text\" onaftersave=\"ctrl.save()\" e-form=\"textBtnForm\" e-rows=\"{{rows}}\" e-cols=\"{{cols}}\">\n" +
     "  {{text}} <i class=\"fa fa-edit\" ng-if=\"ctrl.isAuthenticated()\" class=\"btn btn-sm\" ng-click=\"textBtnForm.$show()\" ng-hide=\"textBtnForm.$visible\"></i>\n" +
     "</span>\n"
   );
 
 }]);
+
+'use strict';
+
+angular.module('angularCmsBlox')
+
+  .directive('authButtons', [function () {
+
+    return {
+      restrict: 'EA',
+      replace: true,
+      scope: {
+      },
+      templateUrl: 'auth/buttons.template.html',
+
+      controller: ['authService', 'cmsConfig', function(authService, cmsConfig){
+
+        this.isAuthenticated = function() {
+          return authService.isAuthenticated();
+        };
+
+        this.logout = function() {
+          authService.logout();
+        };
+
+        this.loginPath = cmsConfig.loginPath;
+
+      }],
+
+      controllerAs: 'ctrl',
+      bindToController: true
+
+    };
+
+  }]);
+
 
 'use strict';
 
@@ -94,7 +162,7 @@ angular.module('angularCmsBlox')
 'use strict';
 
 angular.module('angularCmsBlox')
-  .factory('authService', ['$resource', 'cmsConfig', function ($resource, cmsConfig) {
+  .factory('authService', ['$resource', '$auth', 'cmsConfig', function ($resource, $auth, cmsConfig) {
 
     var Me = $resource(cmsConfig.profileUrl);
     var me;
@@ -112,9 +180,19 @@ angular.module('angularCmsBlox')
       });
     };
 
+    var isAuthenticated = function() {
+      return $auth.isAuthenticated();
+    };
+
+    var logout = function() {
+      $auth.logout();
+    };
+
     // Public API here
     return {
       isAuthorized: isAuthorized,
+      isAuthenticated: isAuthenticated,
+      logout: logout,
       getPath: function() {
         return path;
       },
@@ -170,13 +248,13 @@ angular.module('angularCmsBlox')
 
   })
 
-  .run(['$rootScope','$location','$auth','authService','ACCESS_LEVELS', function ($rootScope, $location, $auth, authService, ACCESS_LEVELS) {
+  .run(['$rootScope','$location','authService','ACCESS_LEVELS', function ($rootScope, $location, authService, ACCESS_LEVELS) {
 
     // Set a watch on the $stateChangeStart
     $rootScope.$on('$stateChangeStart', function (evt, next) {
 
       if (next.accessLevel > ACCESS_LEVELS.pub) {
-        if ($auth.isAuthenticated()) {
+        if (authService.isAuthenticated()) {
 
           authService.isAuthorized(next.accessLevel, function(authorized) {
             if (!authorized) {
@@ -280,6 +358,59 @@ angular.module('angularCmsBlox')
 
 /**
  * @ngdoc directive
+ * @name www.directive:cmsControlPanel
+ * @description
+ * # cmsControlPanel
+ */
+angular.module('angularCmsBlox')
+
+  .directive('cmsControlPanel', [function () {
+
+    return {
+      restrict: 'EA',
+      replace: false,
+      scope: {
+      },
+      templateUrl: 'cms/cms-control-panel.template.html',
+      controller: 'cmsControlPanelController',
+      controllerAs: 'ctrl',
+      bindToController: true
+    };
+
+  }])
+
+  .controller('cmsControlPanelController', ['$scope', 'cmsService', 'authService', '$timeout', function($scope, cmsService, authService, $timeout){
+
+    this.panel = false;
+
+    this.showPanel = function() {
+      this.panel = !this.panel;
+    };
+
+    this.isAuthenticated = function() {
+      return authService.isAuthenticated();
+    };
+
+    this.undo = function() {
+      cmsService.undoText();
+    };
+
+    this.save = function() {
+      $scope.saved = true;
+      cmsService.publishText().then(function() {
+        $timeout(function() {
+          $scope.saved = false;
+        }, 1000);
+      });
+
+    };
+
+  }]);
+
+'use strict';
+
+/**
+ * @ngdoc directive
  * @name www.directive:cmsText
  * @description
  * # cmsText
@@ -302,18 +433,22 @@ angular.module('angularCmsBlox')
 
   }])
 
-  .controller('cmsTextController', ['$translate', '$scope', '$auth', function($translate, $scope, $auth){
+  .controller('cmsTextController', ['$translate', '$scope', 'authService', 'cmsService', function($translate, $scope, authService, cmsService){
+
+    $scope.key = this.key;
 
     $translate(this.key).then(function (translation) {
       $scope.text = translation;
+      $scope.cols = $scope.text.length>100?100:$scope.text.length;
+      $scope.rows = Math.ceil($scope.text.length/$scope.cols)+1;
     });
 
     this.save = function() {
-      //TODO lvb, implement
+      cmsService.savePageText($scope.key, $scope.text);
     };
 
     this.isAuthenticated = function() {
-      return $auth.isAuthenticated();
+      return authService.isAuthenticated();
     };
 
   }]);
@@ -339,14 +474,35 @@ angular.module('angularCmsBlox')
 
 //TODO lvb, add cache for texts
 angular.module('angularCmsBlox')
-  .factory('cmsService', ['$resource', '$q', 'cmsConfig', function ($resource, $q, cmsConfig) {
+  .factory('cmsService', ['$resource', '$q', '$translate', '$window', 'cmsConfig', function ($resource, $q, $translate, $window, cmsConfig) {
 
     var CMS = $resource(cmsConfig.url+'/:id', {id: '@id'});
 
-    var getPageText = function(page, language) {
+    var unPublished;
+    var currentLanguage;
+
+    var dotSet = function (exp, value, scope) {
+      var levels = exp.split('.');
+      var max_level = levels.length - 1;
+      var target = scope;
+      levels.some(function (level, i) {
+        if (typeof level === 'undefined') {
+          return true;
+        }
+        if (i === max_level) {
+          target[level] = value;
+        } else {
+          var obj = target[level] || {};
+          target[level] = obj;
+          target = obj;
+        }
+      });
+    };
+
+    var getPageText = function(part, language) {
       var defer = $q.defer();
 
-      var id = page+'.'+language;
+      var id = part +'.'+language;
 
       CMS.get({id: id}, function(translations) {
         defer.resolve(translations);
@@ -357,10 +513,38 @@ angular.module('angularCmsBlox')
       return defer.promise;
     };
 
-    // Public API here
+    var savePageText = function(key, text) {
+
+      var part = key.split('.')[0];
+      currentLanguage = $translate.preferredLanguage();
+
+      getPageText(part, currentLanguage).then(function(translations) {
+        dotSet(key, text, translations);
+        unPublished = translations;
+      });
+
+    };
+
+    var publishText = function() {
+
+      var defer = $q.defer();
+      CMS.save(unPublished, function() {
+        $translate.refresh(currentLanguage);
+        defer.resolve();
+      });
+      return defer.promise;
+    };
+
+    var undoText = function() {
+      $translate.refresh(currentLanguage);
+      $window.location.reload();
+    };
+
     return {
       getPageText: getPageText,
-      savePageText: function(){}
+      savePageText: savePageText,
+      publishText: publishText,
+      undoText: undoText
     };
 
   }]);
@@ -377,6 +561,14 @@ angular.module('angularCmsBlox').provider('cmsConfig', ['$translateProvider','$t
 
   // Cors without credentials
   $authProvider.withCredentials = false;
+  // Switch caching on for translations
+  $translateProvider.useLoaderCache(true);
+
+  this.loginPath = '/login';
+
+  this.setLoginPath = function(path) {
+    this.loginPath = path;
+  };
 
   this.setPreferredLanguage = function(language) {
     this.preferredLanguage = language || 'nl_NL';
@@ -388,7 +580,11 @@ angular.module('angularCmsBlox').provider('cmsConfig', ['$translateProvider','$t
     $translateProvider.useLoader('$translatePartialLoader', {
       urlTemplate: this.url+ '/'+'{part}.{lang}'
     });
-    $translatePartialLoaderProvider.addPart('home');
+  };
+
+  this.setEmailConfig = function(email) {
+    $authProvider.loginUrl = email.loginUrl || '/auth/login';
+    $authProvider.signupUrl = email.signupUrl || '/auth/signup';
   };
 
   this.setGoogleConfig = function(google) {
@@ -412,6 +608,10 @@ angular.module('angularCmsBlox').provider('cmsConfig', ['$translateProvider','$t
 
   this.setProfileUrl = function(url) {
     this.profileUrl = url || '/auth/me';
+  };
+
+  this.addCmsText = function(part) {
+    $translatePartialLoaderProvider.addPart(part);
   };
 
   this.$get = function () {

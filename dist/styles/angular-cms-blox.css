@@ -7552,7 +7552,79 @@ fieldset[disabled] .btn-yahoo.active {
 .auth-login .addon {
   width: 12px;
 }
-.auth-login .center {
+.auth-login .animate {
+  -webkit-animation: slideInDown 0.2s;
+  -moz-animation: slideInDown 0.2s;
+  -o-animation: slideInDown 0.2s;
+  animation: slideInDown 0.2s;
+}
+.auth-login .animate.ng-hide {
+  -webkit-animation: slideOutUp 0.2s;
+  -moz-animation: slideOutUp 0.2s;
+  -o-animation: slideOutUp 0.2s;
+  animation: slideOutUp 0.2s;
+}
+.auth-login .signup-or-separator {
   margin: 10px;
+  position: relative;
+  height: 34px;
   text-align: center;
+  background: none;
+}
+.auth-login .signup-or-separator hr {
+  width: 100%;
+  margin: -16px auto 10px auto;
+  border-top: 1px solid #dce0e0;
+}
+.auth-login .signup-or-separator .text {
+  display: inline-block;
+  padding: 10px;
+  margin: 0;
+  background-color: #fff;
+}
+.cms-control-panel .panel-button {
+  padding: 10px;
+  margin: 0px;
+  position: fixed;
+  z-index: 999;
+  top: 100px;
+  right: 0px;
+  border-style: solid;
+  border-top-width: 1px;
+  border-left-width: 1px;
+  border-bottom-width: 1px;
+  border-right-width: 0px;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+}
+.cms-control-panel .panel-widget {
+  border-style: solid;
+  border-top-width: 1px;
+  border-left-width: 1px;
+  border-bottom-width: 1px;
+  border-right-width: 0px;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  width: 45px;
+  padding: 10px;
+  position: fixed;
+  z-index: 999;
+  top: 200px;
+  right: 0px;
+  -webkit-animation: bounceInRight 1s;
+  -moz-animation: bounceInRight 1s;
+  -o-animation: bounceInRight 1s;
+  animation: bounceInRight 1s;
+}
+.cms-control-panel .panel-widget.ng-hide.ng-hide-remove-active {
+  -webkit-animation: bounceInRight 1s;
+  -moz-animation: bounceInRight 1s;
+  -o-animation: bounceInRight 1s;
+  animation: bounceInRight 1s;
+}
+.cms-control-panel .panel-widget.ng-hide.ng-hide-add-active {
+  -webkit-animation: bounceOutRight 1s;
+  -moz-animation: bounceOutRight 1s;
+  -o-animation: bounceOutRight 1s;
+  animation: bounceOutRight 1s;
 }

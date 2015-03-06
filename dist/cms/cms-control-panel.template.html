@@ -1,0 +1,11 @@
+<div class="cms-control-panel" ng-show="ctrl.isAuthenticated()">
+
+    <div class="panel-button pull-right"><i class="fa fa-2x fa-cog" ng-click="ctrl.showPanel()"></i></div>
+
+    <div class="panel-widget" ng-show="ctrl.panel">
+        <i class="fa fa-2x fa-save" ng-click="ctrl.save()" ng-hide="saved"></i>
+        <i class="fa fa-2x fa-ellipsis-h" ng-show="saved"></i>
+        <i class="fa fa-2x fa-undo" ng-click="ctrl.undo()"></i>
+    </div>
+
+</div>
