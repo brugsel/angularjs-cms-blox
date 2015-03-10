@@ -1,4 +1,1 @@
-<ul class="auth-buttons nav navbar-nav navbar-right">
-    <li ng-hide="ctrl.isAuthenticated()"><a href="/#!{{ctrl.loginPath}}">{{'auth.login' | translate}}</a></li>
-    <li ng-show="ctrl.isAuthenticated()"><a ng-click="ctrl.logout()">{{'auth.logout' | translate}}</a></li>
-</ul>
+<a class="auth-buttons" ng-click="ctrl.action()" >{{ctrl.label.key | translate}}</a>

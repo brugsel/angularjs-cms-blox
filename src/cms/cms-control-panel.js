@@ -23,8 +23,13 @@ angular.module('angularCmsBlox')
 
   }])
 
-  .controller('cmsControlPanelController', ['$scope', 'cmsService', 'authService', '$timeout', function($scope, cmsService, authService, $timeout){
+  .controller('cmsControlPanelController', ['cmsService', 'authService', '$timeout', function(cmsService, authService, $timeout){
 
+    var status = {
+      saved: false
+    };
+
+    this.status = status;
     this.panel = false;
 
     this.showPanel = function() {
@@ -40,10 +45,10 @@ angular.module('angularCmsBlox')
     };
 
     this.save = function() {
-      $scope.saved = true;
+      status.saved = true;
       cmsService.publishText().then(function() {
         $timeout(function() {
-          $scope.saved = false;
+          status.saved = false;
         }, 1000);
       });
 

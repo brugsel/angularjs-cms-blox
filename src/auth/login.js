@@ -11,7 +11,7 @@ angular.module('angularCmsBlox')
       },
       templateUrl: 'auth/login.template.html',
 
-      controller: ['$auth', function($auth){
+      controller: [function(){
 
         this.loginForm = {
         };
@@ -19,7 +19,7 @@ angular.module('angularCmsBlox')
         this.isLogin = true;
 
         this.authenticate = function(provider) {
-          $auth.authenticate(provider).then(function() {
+          authService.authenticate(provider).then(function() {
             if (authService.getPath()) {
               $location.path(authService.getPath());
             }
@@ -27,27 +27,19 @@ angular.module('angularCmsBlox')
         };
 
         this.isAuthenticated = function() {
-          return $auth.isAuthenticated();
+          return authService.isAuthenticated();
         };
 
         this.login = function() {
-          $auth.login({
-            email: this.loginForm.email,
-            password: this.loginForm.password
-          });
+          authService.login(this.loginForm.email, this.loginForm.password);
         };
 
         this.logout = function() {
-          $auth.logout();
+          authService.logout();
         };
 
         this.signup = function() {
-          $auth.signup({
-            email: this.loginForm.email,
-            password: this.loginForm.password
-          }).then(function (response) {
-            console.log(response.data);
-          });
+          authService.signup(this.loginForm.email, this.loginForm.password);
         };
 
         this.cancel = function() {
@@ -58,12 +50,8 @@ angular.module('angularCmsBlox')
           }
         };
 
-        this.switch = function() {
-          if (this.isLogin) {
-            this.isLogin = false;
-          } else {
-            this.isLogin = true;
-          }
+        this.switchSignup = function() {
+          this.isLogin = !this.isLogin;
         };
 
       }],

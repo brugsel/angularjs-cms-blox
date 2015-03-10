@@ -28,6 +28,7 @@ module.exports = function(config) {
       'bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js',
       'bower_components/angular-xeditable/dist/js/xeditable.js',
       'bower_components/satellizer/satellizer.js',
+      'bower_components/angular-animate/angular-animate.js',
       'src/*.js',
       'src/**/*.js',
       'src/**/*.html',
