@@ -8,7 +8,6 @@ angular.module('angularCmsBlox')
     var path;
 
     var isAuthorized = function(accessLevel, callback) {
-
       Me.get(function(data) {
         me = data;
         if (me.role >= accessLevel) {

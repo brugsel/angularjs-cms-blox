@@ -112,6 +112,10 @@ module.exports = function (grunt) {
                 connect.static('./bower_components/font-awesome/fonts')
               ),
               connect().use(
+                '/fonts',
+                connect.static('./bower_components/bootstrap/fonts')
+              ),
+              connect().use(
                 '/',
                 connect.static('./src')
               ),
@@ -138,6 +142,10 @@ module.exports = function (grunt) {
               connect().use(
                 '/fonts',
                 connect.static('./bower_components/font-awesome/fonts')
+              ),
+              connect().use(
+                '/fonts',
+                connect.static('./bower_components/bootstrap/fonts')
               ),
               connect().use(
                 '/',

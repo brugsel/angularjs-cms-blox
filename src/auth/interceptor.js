@@ -3,11 +3,12 @@
 //TODO lvb, authenticator part of cms? configurable?
 angular.module('angularCmsBlox')
   .constant('ACCESS_LEVELS', {
-    pub: 1,
-    user: 2,
-    aso: 4,
-    dooner: 8,
-    root: 16
+    pub: 0,
+    one: 1,
+    two: 2,
+    three: 4,
+    four: 8,
+    five: 16
   })
   .config(function ($httpProvider) {
 
