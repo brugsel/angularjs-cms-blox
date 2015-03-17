@@ -1,7 +1,11 @@
-<div class="landing-title">
-    <div in-view="ctrl.setVisible()">
-        <div class="content" ng-show="ctrl.visible">
-            <div cms-text="{{ctrl.text}}"></div>
+<div class="landing-title" layout="row" layout-align="center center" layout-fill>
+    <div in-view="ctrl.startLoop()">
+
+      <div ng-repeat="text in ctrl.settings.texts">
+        <div class="content" ng-show="ctrl.settings.index === $index">
+          <h1 cms-text="{{text}}"></h1>
         </div>
+      </div>
+
     </div>
 </div>

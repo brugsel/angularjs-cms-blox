@@ -81,7 +81,7 @@ module.exports = function (grunt) {
     ngtemplates: {
       'angularCmsBlox': {
         src:      '<%= config.src %>/**/*.template.html',
-        dest:     '.tmp/src/angular-cms-blox-templates.js',
+        dest:     '.tmp/angular-cms-blox-templates.js',
         options:  {
           url:    function(url) { return url.replace('src/', ''); }
         }

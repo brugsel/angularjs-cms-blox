@@ -13,6 +13,10 @@ mockData.wwwHome =
   'lang': 'nl_NL',
   'home': {
     'title': 'Titel aanpasbaar na inlog',
+    'title1': 'Titel 1',
+    'title2': 'Titel 2',
+    'title3': 'Titel 3',
+    'title4': 'Titel 4',
     "intro": "Welkom op de demo pagina van de angular-cms-blox. Op deze pagina is een voorbeeld te zien hoe de texten aangepast kunnen worden na inlog."
   }
 };

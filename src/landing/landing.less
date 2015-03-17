@@ -1,8 +1,25 @@
-@duration-panel: 1s;
+@duration-panel: 1000ms;
+
 
 .content {
+
   -webkit-animation: slideInLeft @duration-panel;
   -moz-animation: slideInLeft @duration-panel;
   -o-animation: slideInLeft @duration-panel;
   animation: slideInLeft @duration-panel;
+
+  .ng-hide-add {
+    -webkit-animation: slideOutLeft @duration-panel;
+    -moz-animation: slideOutLeft @duration-panel;
+    -o-animation: slideOutLeft @duration-panel;
+    animation: slideOutLeft @duration-panel;
+  }
+
+  .ng-hide-remove {
+    -webkit-animation: slideInLeft @duration-panel;
+    -moz-animation: slideInLeft @duration-panel;
+    -o-animation: slideInLeft @duration-panel;
+    animation: slideInLeft @duration-panel;
+  }
+
 }

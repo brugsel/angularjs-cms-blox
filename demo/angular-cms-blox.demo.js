@@ -1,7 +1,7 @@
 'use strict';
 
-//angular.module('angularCmsBloxDemo',['angularCmsBloxMock', 'ui.router'])
-angular.module('angularCmsBloxDemo',['angularCmsBlox','ui.router'])
+angular.module('angularCmsBloxDemo',['angularCmsBloxMock', 'ui.router'])
+//angular.module('angularCmsBloxDemo',['angularCmsBlox','ui.router'])
 
   .config(function ($locationProvider) {
     $locationProvider.html5Mode(false).hashPrefix('!');
