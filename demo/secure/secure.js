@@ -5,7 +5,7 @@ angular.module('angularCmsBloxDemo')
     $stateProvider
       .state('secure', {
         url: '/secure',
-        templateUrl: 'src/secure/index.html',
+        templateUrl: 'secure/index.html',
         accessLevel: ACCESS_LEVELS.user
       });
   });

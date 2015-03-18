@@ -70,8 +70,10 @@ module.exports = function (grunt) {
         files: [
           '<%= config.demo %>/{,*/}*.html',
           '<%= config.src %>/{,*/}*.html',
-          '<%= config.demo %>/{,*/}*.less',
-          '<%= config.src %>/{,*/}*.less',
+          '<%= config.demo %>/*.less',
+          '<%= config.demo %>/**/*.less',
+          '<%= config.src %>/*.less',
+          '<%= config.src %>/**/*.less',
           '.tmp/styles/{,*/}*.css',
           '<%= config.assets %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]

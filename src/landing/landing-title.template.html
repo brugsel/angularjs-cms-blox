@@ -1,11 +1,11 @@
 <div class="landing-title" layout="row" layout-align="center center" layout-fill>
-    <div in-view="ctrl.startLoop()">
+    <div class="full-width" in-view="ctrl.startLoop()">
 
-      <div ng-repeat="text in ctrl.settings.texts">
-        <div class="content" ng-show="ctrl.settings.index === $index">
-          <h1 cms-text="{{text}}"></h1>
+        <div ng-switch on="ctrl.settings.index">
+            <h1 class="animate-switch" ng-switch-when="0" cms-text="{{ctrl.settings.texts[ctrl.settings.index]}}"></h1>
+            <h1 class="animate-switch" ng-switch-when="1" cms-text="{{ctrl.settings.texts[ctrl.settings.index]}}"></h1>
+            <h1 class="animate-switch" ng-switch-when="2" cms-text="{{ctrl.settings.texts[ctrl.settings.index]}}"></h1>
         </div>
-      </div>
 
     </div>
 </div>

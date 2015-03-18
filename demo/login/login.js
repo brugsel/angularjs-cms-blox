@@ -5,7 +5,7 @@ angular.module('angularCmsBloxDemo')
     $stateProvider
       .state('login', {
         url: '/login',
-        templateUrl: 'src/login/index.html',
+        templateUrl: 'login/index.html',
         accessLevel: ACCESS_LEVELS.pub
       });
   });

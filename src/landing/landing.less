@@ -1,25 +1,30 @@
-@duration-panel: 1000ms;
+.landing-title {
 
+  overflow-x: hidden;
 
-.content {
-
-  -webkit-animation: slideInLeft @duration-panel;
-  -moz-animation: slideInLeft @duration-panel;
-  -o-animation: slideInLeft @duration-panel;
-  animation: slideInLeft @duration-panel;
-
-  .ng-hide-add {
-    -webkit-animation: slideOutLeft @duration-panel;
-    -moz-animation: slideOutLeft @duration-panel;
-    -o-animation: slideOutLeft @duration-panel;
-    animation: slideOutLeft @duration-panel;
+  .full-width {
+    width: 100%;
+    display: block;
+    text-align: center;
   }
 
-  .ng-hide-remove {
+  @duration-panel: 1s;
+
+  .animate-switch.ng-animate {
+  }
+
+  .animate-switch.ng-leave.ng-leave-active,
+  .animate-switch.ng-enter {
+    -webkit-animation: slideOutRight @duration-panel;
+    -moz-animation: slideOutRight @duration-panel;
+    -o-animation: slideOutRight @duration-panel;
+    animation: slideOutRight @duration-panel;
+  }
+  .animate-switch.ng-leave,
+  .animate-switch.ng-enter.ng-enter-active {
     -webkit-animation: slideInLeft @duration-panel;
     -moz-animation: slideInLeft @duration-panel;
     -o-animation: slideInLeft @duration-panel;
     animation: slideInLeft @duration-panel;
   }
-
 }
