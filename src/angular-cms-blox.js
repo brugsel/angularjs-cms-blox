@@ -4,4 +4,4 @@
  * @name
  * @description
  */
-angular.module('angularCmsBlox',['ngResource', 'ngCookies', 'ngAnimate', 'satellizer', 'pascalprecht.translate', 'xeditable', 'angular-inview']);
+angular.module('angularCmsBlox',['ngResource', 'ngCookies', 'ngAnimate', 'ngMaterial', 'satellizer', 'pascalprecht.translate', 'xeditable', 'angular-inview']);

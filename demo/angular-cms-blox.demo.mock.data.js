@@ -16,7 +16,7 @@ mockData.wwwHome =
     'title1': 'Titel 1',
     'title2': 'Titel 2',
     'title3': 'Titel 3',
-    "intro": "Welkom op de demo pagina van de angular-cms-blox. Op deze pagina is een voorbeeld te zien hoe de texten aangepast kunnen worden na inlog."
+    "intro": "Met de producten van DOON speel je praktisch en doeltreffend in op een snel veranderende wereld. Op weg naar een wendbare organisatie en om continue innovatie te realiseren."
   }
 };
 

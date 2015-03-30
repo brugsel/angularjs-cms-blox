@@ -37,4 +37,9 @@ angular.module('angularCmsBloxDemo',['angularCmsBloxMock', 'ui.router'])
     cmsConfigProvider.addCmsText('home');
     cmsConfigProvider.addCmsText('auth');
 
-  }]);
+  }])
+  .config(function($mdThemingProvider) {
+    $mdThemingProvider.theme('default')
+      .primaryPalette('purple')
+      .accentPalette('orange');
+  });
