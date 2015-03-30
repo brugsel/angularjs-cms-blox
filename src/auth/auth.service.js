@@ -53,9 +53,12 @@ angular.module('angularCmsBlox')
 
       var defer = $q. defer();
 
-      $auth.authenticate(provider).then(function() {
+      $auth.authenticate(provider).then(function(data) {
+        console.log(data);
         $rootScope.$emit('auth:login');
         defer.resolve();
+      }, function(data) {
+        console.log(data);
       });
 
       return defer.promise;

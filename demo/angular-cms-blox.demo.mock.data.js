@@ -2,7 +2,7 @@ var mockData = {};
 
 mockData.contentType = {'Content-type': 'application/json'};
 
-mockData.token = {"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1NGU4NWI5OWE5YjIxZWJiNGQ5ZDM0MWUiLCJpYXQiOjE0MjQ1MTUyODYsImV4cCI6MTQyNTcyNDg4Nn0.QxXaaZHy7PkYv3PS3mqNIzkqDAvlyBK1Bs297n7AVvA"};
+mockData.token = {"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1NTBjN2U2NDE1OGMxZDAzMDAwOTBkNGMiLCJpYXQiOjE0Mjc3NDEwOTgsImV4cCI6MTQyODk1MDY5OH0.XGvhBLarTUVLO1P5Ulb2tlopBXwIuojRbYt_75K5R3E"};
 
 mockData.wwwHome =
 {
@@ -16,7 +16,6 @@ mockData.wwwHome =
     'title1': 'Titel 1',
     'title2': 'Titel 2',
     'title3': 'Titel 3',
-    'title4': 'Titel 4',
     "intro": "Welkom op de demo pagina van de angular-cms-blox. Op deze pagina is een voorbeeld te zien hoe de texten aangepast kunnen worden na inlog."
   }
 };

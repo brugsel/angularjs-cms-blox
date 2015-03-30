@@ -16,20 +16,19 @@ angular.module('angularCmsBlox')
       ratio: '=',
       offset: '='
     },
+    controllerAs: 'ctrl',
+    bindToController: true,
     link: function($scope, element) {
 
-      var setPosition = function () {
-        var calcValY = ((element.prop('offsetTop') - $window.pageYOffset) * ($scope.ratio ? $scope.ratio : 1.1 ))+($scope.offset?$scope.offset:0);
+      function calculateY() {
+        var y = ((element.prop('offsetTop') - $window.pageYOffset) * ($scope.ratio ? $scope.ratio : 1.1 )) + ($scope.offset?$scope.offset:0);
+        element.css('background-position', '50% ' +  y + 'px');
+      }
 
-        // horizontal positioning
-        element.css('background-position', "50% " +  calcValY + "px");
+      calculateY();
 
-      };
-
-      setPosition();
-
-      angular.element($window).bind('scroll', setPosition);
-      angular.element($window).bind('touchmove', setPosition);
+      angular.element($window).bind('scroll', calculateY);
+      angular.element($window).bind('touchmove', calculateY);
 
     }
   };

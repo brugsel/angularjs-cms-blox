@@ -25,17 +25,18 @@ angular.module('angularCmsBlox')
 
   }])
 
-  .controller('landingTitleController', ['$log', '$timeout',function($log, $timeout){
+  .controller('landingTitleController', ['$log', '$timeout', 'authService',function($log, $timeout, authService) {
 
     var texts = this.text.split(' ');
     var duration = this.duration || 3000;
 
     var next = function() {
       $timeout(function () {
+        settings.next = settings.index+1;
         settings.index = undefined;
         $timeout(function () {
-          settings.index = 1;
-          if (settings.index >= settings.texts.length) {
+          settings.index = settings.next;
+          if (settings.index > settings.texts.length) {
             settings.index = 0;
           }
           next();
@@ -55,6 +56,10 @@ angular.module('angularCmsBlox')
         settings.index = 0;
         next();
       }, 250);
+    };
+
+    this.isAuthenticated = function() {
+      return authService.isAuthenticated();
     };
 
   }]);

@@ -37,7 +37,6 @@ angular.module('angularCmsBlox')
           label.key = 'auth.login';
         });
 
-
       }],
 
       controllerAs: 'ctrl',
