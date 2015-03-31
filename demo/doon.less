@@ -1,7 +1,8 @@
-@import '../bower_components/bootstrap/less/bootstrap.less';
-@import '../bower_components/font-awesome/less/font-awesome.less';
+@import 'http://fonts.googleapis.com/css?family=Ubuntu';
+@import 'http://fonts.googleapis.com/css?family=Raleway';
 
-@icon-font-path: '/bower_components/bootstrap/fonts/';
+@import '/bower_components/font-awesome/less/font-awesome.less';
+
 @fa-font-path: '/bower_components/font-awesome/fonts';
 
 /**
@@ -18,13 +19,7 @@
 
 @headings-font-family:    'Raleway','Helvetica Neue', Helvetica, Arial, sans-serif;
 @font-family-sans-serif:  'Ubuntu', sans-serif,Helvetica, Arial;
-
-@font-family-base:        @headings-font-family;
-
-@text-color:              @doon-dark;
-@brand-primary:           @doon-purple;
-@btn-default-color:       #FFF;
-@btn-default-bg:          @doon-orange;
+@font-family-base:        'Ubuntu', sans-serif,Helvetica, Arial;
 
 @font-size-base:          18px;
 
@@ -54,9 +49,13 @@
 @screen-xlg-min:          @screen-xlg;
 @screen-xlg-desktop:      @screen-xlg-min;
 
+@navbar-default-bg:                rgba(255,255,255,0.9);
+
 h1 {
+  font-family: @font-family-base;
   font-weight: @headings-font-weight;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  color: #FFF;
 
   @media only screen and (max-width: 767px) {
     /* phones */
@@ -71,13 +70,14 @@ h1 {
 }
 
 h2 {
-  font-family: @font-family-sans-serif;
+  font-family: @font-family-base;
   font-weight: @headings-font-weight-ultralight;
   color: @doon-orange;
   padding: 30px 0 40px 0;
 }
 
 h3, h4, h5, h6 {
+  font-family: @font-family-base;
   line-height: @line-height-base;
   font-weight: @headings-font-weight-light !important;
 }
@@ -93,10 +93,21 @@ html {
 }
 
 body {
-  color: #FFF;
+  font-family: @font-family-base;
+  color: @doon-dark;
   position:relative;
   height:100%;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  font-family: @font-family-base;
+}
+
+md-toolbar.md-default-theme {
+  background-color: @navbar-default-bg;
+  .md-button {
+    color: @doon-purple;
+  }
+}
+
+.md-button {
+  text-transform: none;
 }

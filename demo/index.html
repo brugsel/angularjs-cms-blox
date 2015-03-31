@@ -10,10 +10,8 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css" />
     <link rel="stylesheet" href="/bower_components/angular-xeditable/dist/css/xeditable.css" />
-    <link rel="stylesheet" href="/bower_components/bootstrap-social/bootstrap-social.css" />
     <link rel="stylesheet" href="/bower_components/animate.css/animate.css" />
     <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css" />
     <!-- endbower -->
@@ -28,17 +26,19 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-
-    <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <ul class="nav navbar-nav">
-          <li><a href="/#!/">Home</a></li>
-          <li><a href="/#!/secure">Secure</a></li>
-          <li><auth-buttons /></li>
-        </ul>
-      </div>
-    </nav>
-
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <img alt="DOON Ideate Validate Create, Innovate like a startup!" src="http://static.doon.nu/images/doon-logo.png"/>
+            <span flex></span>
+            <md-button href="/#!/">
+                Home
+            </md-button>
+            <md-button href="/#!/secure">
+                Secure
+            </md-button>
+            <auth-buttons />
+        </div>
+    </md-toolbar>
 
     <!-- Add your site or application content here -->
     <div id="view" ui-view=""></div>
@@ -55,9 +55,7 @@
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="/bower_components/modernizr/modernizr.js"></script>
-    <script src="/bower_components/jquery/dist/jquery.js"></script>
     <script src="/bower_components/angular/angular.js"></script>
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="/bower_components/angular-translate/angular-translate.js"></script>
     <script src="/bower_components/angular-resource/angular-resource.js"></script>
     <script src="/bower_components/angular-cookies/angular-cookies.js"></script>

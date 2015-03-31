@@ -7,7 +7,7 @@ angular.module('angularCmsBlox')
     return {
       restrict: 'EA',
       replace: true,
-      templateUrl: 'auth/buttons.template.html',
+      templateUrl: 'auth/auth-buttons.template.html',
 
       controller: ['authService', 'cmsConfig', '$location', '$rootScope', function(authService, cmsConfig, $location, $rootScope){
 
