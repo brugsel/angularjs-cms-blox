@@ -1,3 +1,3 @@
 <span translate-cloak editable-textarea="ctrl.item.text" onaftersave="ctrl.save()" e-form="textBtnForm" e-rows="{{ctrl.item.rows}}" e-cols="{{ctrl.item.cols}}">
-  {{ctrl.item.text}} <i class="fa fa-edit" ng-if="ctrl.isAuthenticated()" class="btn btn-sm" ng-click="textBtnForm.$show()" ng-hide="textBtnForm.$visible"></i>
+  {{ctrl.item.text}} <i class="fa fa-edit" ng-if="ctrl.isEditable()" class="btn btn-sm" ng-click="textBtnForm.$show()" ng-hide="textBtnForm.$visible"></i>
 </span>

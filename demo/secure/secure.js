@@ -6,6 +6,6 @@ angular.module('angularCmsBloxDemo')
       .state('secure', {
         url: '/secure',
         templateUrl: 'secure/index.html',
-        accessLevel: ACCESS_LEVELS.user
+        accessLevel: ACCESS_LEVELS.two
       });
   });

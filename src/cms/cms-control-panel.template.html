@@ -1,8 +1,10 @@
 <div class="cms-control-panel" ng-show="ctrl.isAuthenticated()">
 
-    <div class="panel-button pull-right"><i class="fa fa-2x fa-cog" ng-click="ctrl.showPanel()"></i></div>
+    <div class="panel-button"><i class="fa fa-2x fa-cog" ng-click="ctrl.showPanel()"></i></div>
 
     <div class="panel-widget" ng-show="ctrl.panel">
+        <i class="fa fa-2x fa-edit" ng-click="ctrl.toggleEditMode()" ng-hide="ctrl.isEditable()"></i>
+        <i class="fa fa-2x fa-stop" ng-click="ctrl.toggleEditMode()" ng-show="ctrl.isEditable()"></i>
         <i class="fa fa-2x fa-save" ng-click="ctrl.save()" ng-hide="ctrl.status.saved"></i>
         <i class="fa fa-2x fa-ellipsis-h" ng-show="ctrl.status.saved"></i>
         <i class="fa fa-2x fa-undo" ng-click="ctrl.undo()"></i>

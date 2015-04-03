@@ -51,7 +51,14 @@ angular.module('angularCmsBlox')
           status.saved = false;
         }, 1000);
       });
+    };
 
+    this.toggleEditMode = function() {
+      cmsService.toggleEditMode();
+    };
+
+    this.isEditable = function() {
+      return cmsService.isEditable();
     };
 
   }]);

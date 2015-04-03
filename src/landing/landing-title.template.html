@@ -7,7 +7,7 @@
             <h1 class="animate-switch" ng-switch-when="2" translate="{{ctrl.settings.texts[ctrl.settings.index]}}"></h1>
         </div>
 
-        <div ng-show="ctrl.isAuthenticated()">
+        <div ng-show="ctrl.isEditable()">
 
           <div ng-repeat="text in ctrl.settings.texts">
             <span cms-text="{{text}}"></span><br>

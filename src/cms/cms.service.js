@@ -2,12 +2,13 @@
 
 //TODO lvb, add cache for texts
 angular.module('angularCmsBlox')
-  .factory('cmsService', ['$resource', '$q', '$translate', '$window', 'cmsConfig', function ($resource, $q, $translate, $window, cmsConfig) {
+  .factory('cmsService', ['$rootScope', '$resource', '$q', '$translate', '$window', 'cmsConfig', function ($rootScope, $resource, $q, $translate, $window, cmsConfig) {
 
     var CMS = $resource(cmsConfig.url+'/:id', {id: '@id'});
 
     var unPublished;
     var currentLanguage;
+    var editable = false;
 
     var dotSet = function (exp, value, scope) {
       var levels = exp.split('.');
@@ -49,6 +50,7 @@ angular.module('angularCmsBlox')
       getPageText(part, currentLanguage).then(function(translations) {
         dotSet(key, text, translations);
         unPublished = translations;
+        $rootScope.$emit('cms:savePageText');
       });
 
     };
@@ -58,6 +60,7 @@ angular.module('angularCmsBlox')
       var defer = $q.defer();
       CMS.save(unPublished, function() {
         $translate.refresh(currentLanguage);
+        $rootScope.$emit('cms:publishText');
         defer.resolve();
       });
       return defer.promise;
@@ -68,11 +71,21 @@ angular.module('angularCmsBlox')
       $window.location.reload();
     };
 
+    var toggleEditMode = function() {
+      editable = !editable;
+    };
+
+    var isEditable = function() {
+      return editable;
+    };
+
     return {
       getPageText: getPageText,
       savePageText: savePageText,
       publishText: publishText,
-      undoText: undoText
+      undoText: undoText,
+      toggleEditMode: toggleEditMode,
+      isEditable: isEditable
     };
 
   }]);

@@ -8,23 +8,21 @@
     text-align: center;
   }
 
-  @duration-panel: 1s;
-
   .animate-switch.ng-animate {
   }
 
   .animate-switch.ng-leave.ng-leave-active,
   .animate-switch.ng-enter {
-    -webkit-animation: slideOutRight @duration-panel;
-    -moz-animation: slideOutRight @duration-panel;
-    -o-animation: slideOutRight @duration-panel;
-    animation: slideOutRight @duration-panel;
+    -webkit-animation: slideOutRight @duration;
+    -moz-animation: slideOutRight @duration;
+    -o-animation: slideOutRight @duration;
+    animation: slideOutRight @duration;
   }
   .animate-switch.ng-leave,
   .animate-switch.ng-enter.ng-enter-active {
-    -webkit-animation: slideInLeft @duration-panel;
-    -moz-animation: slideInLeft @duration-panel;
-    -o-animation: slideInLeft @duration-panel;
-    animation: slideInLeft @duration-panel;
+    -webkit-animation: slideInLeft @duration;
+    -moz-animation: slideInLeft @duration;
+    -o-animation: slideInLeft @duration;
+    animation: slideInLeft @duration;
   }
 }

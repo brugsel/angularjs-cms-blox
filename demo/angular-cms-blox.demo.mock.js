@@ -12,6 +12,11 @@ angular.module('angularCmsBloxMock').run(function ($httpBackend) {
       return [200, mockData.wwwAuth, mockData.contentType];
     });
 
+  $httpBackend.whenPOST(/api\/sandbox\/doon\/catalog\/cms_www/).respond(
+    function() {
+      return [200, mockData.wwwAuth, mockData.contentType];
+    });
+
   $httpBackend.whenPOST(/auth\/signup/).respond(
     function() {
       return [200, {}, mockData.contentType];

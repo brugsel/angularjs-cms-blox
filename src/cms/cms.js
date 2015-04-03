@@ -8,9 +8,11 @@
  */
 angular.module('angularCmsBlox')
 
-  .run(['editableOptions',function(editableOptions) {
+  .run(['editableOptions', 'editableThemes',function(editableOptions, editableThemes) {
 
-    editableOptions.theme = 'bs3';
+    editableOptions.theme = 'default';
+    editableThemes['default'].submitTpl = '<md-button class="md-raised" type="submit"><i class="fa fa-check"></i></md-button>';
+    editableThemes['default'].cancelTpl = '<md-button class="md-raised" type="button" ng-click="$form.$cancel()" tabindex="0"><i class="fa fa-remove"></i></md-button>';
 
   }]);
 

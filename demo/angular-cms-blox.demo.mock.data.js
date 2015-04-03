@@ -25,7 +25,7 @@ mockData.wwwAuth = {
   "part": "auth",
   "language": "nl_NL",
   "auth": {
-    "title": "Login met",
+    "title": "Aanmelden",
     "or": "of",
     "email": "e-mail",
     "password": "wachtwoord",
@@ -33,6 +33,8 @@ mockData.wwwAuth = {
     "login": "log in",
     "logout": "log uit",
     "signup": "aanmelden",
+    "to-signup": "of meld je aan",
+    "to-login": "ga naar inloggen",
     "lost": "wachtwoord vergeten"
   }
 };

@@ -24,7 +24,7 @@ angular.module('angularCmsBlox')
 
   }])
 
-  .controller('cmsTextController', ['$translate', 'authService', 'cmsService', function($translate, authService, cmsService){
+  .controller('cmsTextController', ['$translate', 'cmsService', function($translate, cmsService){
 
     var item = {
       key: this.key
@@ -42,8 +42,8 @@ angular.module('angularCmsBlox')
       cmsService.savePageText(item.key, item.text);
     };
 
-    this.isAuthenticated = function() {
-      return authService.isAuthenticated();
+    this.isEditable = function() {
+      return cmsService.isEditable();
     };
 
   }]);

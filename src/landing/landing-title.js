@@ -25,7 +25,7 @@ angular.module('angularCmsBlox')
 
   }])
 
-  .controller('landingTitleController', ['$log', '$timeout', 'authService',function($log, $timeout, authService) {
+  .controller('landingTitleController', ['$rootScope', '$log', '$timeout', 'cmsService',function($rootScope, $log, $timeout, cmsService) {
 
     var texts = this.text.split(' ');
     var duration = this.duration || 3000;
@@ -58,8 +58,10 @@ angular.module('angularCmsBlox')
       }, 250);
     };
 
-    this.isAuthenticated = function() {
-      return authService.isAuthenticated();
+    this.isEditable = function() {
+      return cmsService.isEditable();
     };
+
+
 
   }]);

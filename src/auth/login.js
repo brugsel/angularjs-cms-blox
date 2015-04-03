@@ -31,7 +31,7 @@ angular.module('angularCmsBlox')
         };
 
         this.login = function() {
-          authService.login(this.loginForm.email, this.loginForm.password);
+          authService.login(this.login.email, this.login.password);
         };
 
         this.logout = function() {
@@ -39,7 +39,8 @@ angular.module('angularCmsBlox')
         };
 
         this.signup = function() {
-          authService.signup(this.loginForm.email, this.loginForm.password);
+          //TODO lvb, check password/password-confirm
+          authService.signup(this.login.email, this.login.password);
         };
 
         this.cancel = function() {

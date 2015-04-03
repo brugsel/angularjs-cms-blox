@@ -17,45 +17,43 @@
                 <form name="loginForm">
 
                     <md-input-container>
-                        <input name="email" ng-model="ctrl.loginForm.email" required md-maxlength="50" minlength="4" placeholder="{{'auth.email' | translate}}">
-                        <div ng-messages="ctrl.loginForm.email.$error" ng-show="ctrl.loginForm.email.$dirty">
+                        <label>{{'auth.email' | translate}}</label>
+                        <input type="email" name="email" ng-model="ctrl.login.email" required>
+                        <div ng-messages="loginForm.email.$error" ng-show="loginForm.email.$dirty && loginForm.email.$invalid">
                             <div ng-message="required">This is required!</div>
-                            <div ng-message="md-maxlength">That's too long!</div>
-                            <div ng-message="minlength">That's too short!</div>
+                            <div ng-message="email">That's not an e-mail!</div>
                         </div>
                     </md-input-container>
-
                     <md-input-container>
-                        <input type="password" name="password" ng-model="ctrl.loginForm.password" required md-maxlength="50" minlength="4" placeholder="{{'auth.password' | translate}}">
-                        <div ng-messages="loginForm.password.$error" ng-show="loginForm.password.$dirty">
+                      <label>{{'auth.password' | translate}}</label>
+                      <input type="password" name="password" ng-model="ctrl.login.password" required md-maxlength="50" minlength="4">
+                        <div ng-messages="loginForm.password.$error" ng-show="loginForm.password.$dirty && loginForm.password.$invalid">
                             <div ng-message="required">This is required!</div>
                             <div ng-message="md-maxlength">That's too long!</div>
                             <div ng-message="minlength">That's too short!</div>
                         </div>
                     </md-input-container>
-
-                    <md-input-container ng-hide="ctrl.isLogin">
-                        <input type="password" name="passwordCheck" ng-model="ctrl.loginForm.passwordCheck" required md-maxlength="50" minlength="4" placeholder="{{'auth.password-confirm' | translate}}">
-                        <div ng-messages="loginForm.passwordCheck.$error" ng-show="loginForm.passwordCheck.$dirty">
+                    <md-input-container ng-hide="ctrl.isLogin" class="animate">
+                      <label>{{'auth.password-confirm' | translate}}</label>
+                      <input type="password" name="passwordCheck" ng-model="ctrl.login.passwordCheck" required ng-if="!ctrl.isLogin" dn-match="ctrl.login.password">
+                        <div ng-messages="loginForm.passwordCheck.$error" ng-show="loginForm.passwordCheck.$dirty && loginForm.passwordCheck.$invalid">
                             <div ng-message="required">This is required!</div>
-                            <div ng-message="md-maxlength">That's too long!</div>
-                            <div ng-message="minlength">That's too short!</div>
+                            <div ng-message="match">Password does not match!</div>
                         </div>
                     </md-input-container>
 
                 </form>
-
-                <md-button ng-show="ctrl.isLogin" class="md-raised" ng-click="ctrl.login()" aria-label="login">
+               <md-button ng-show="ctrl.isLogin" class="md-raised" ng-click="ctrl.login()" aria-label="login" ng-disabled="!loginForm.$valid">
                     <span cms-text="auth.login"></span>
                 </md-button>
-                <md-button ng-hide="ctrl.isLogin" class="md-raised" ng-click="ctrl.signup()" aria-label="signup">
+                <md-button ng-hide="ctrl.isLogin" class="md-raised" ng-click="ctrl.signup()" aria-label="signup" ng-disabled="!loginForm.$valid">
                     <span cms-text="auth.signup"></span>
                 </md-button>
-
                 <div layout="row">
                     <div flex="50" layout-align="left">
                         <md-button class="pull-left" ng-click="ctrl.switchSignup()" aria-label="goto signup">
-                            <span cms-text="auth.signup"></span>
+                            <span ng-show="ctrl.isLogin" cms-text="auth.to-signup"></span>
+                            <span ng-hide="ctrl.isLogin" cms-text="auth.to-login"></span>
                         </md-button>
                     </div>
                     <div flex="50" layout-align="right">
@@ -68,8 +66,6 @@
             </div>
             <div flex="30"></div>
         </div>
-
-    </div>
 
     <div ng-show="ctrl.isAuthenticated()">
 
