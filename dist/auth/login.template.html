@@ -1,68 +1,93 @@
 <div class="auth-login">
 
-  <div ng-hide="ctrl.isAuthenticated()">
+    <div ng-hide="ctrl.isAuthenticated()">
 
-    <div class="container">
-      <h3 cms-text="auth.title"></h3>
-    </div>
+        <div layout="row">
+            <div flex="30"></div>
+            <div flex>
+                <h2 cms-text="auth.title"></h2>
+                <md-button layout-fill class="md-primary md-raised" ng-click="ctrl.authenticate('google')">
+                    <i class="fa fa-google"></i> Google
+                </md-button>
+                <div class="signup-or-separator">
+                    <h6 class="text" cms-text="auth.or"></h6>
+                    <hr>
+                </div>
 
-    <div class="container">
-      <a class="btn btn-block btn-social btn-google-plus" ng-click="ctrl.authenticate('google')">
-        <i class="fa fa-google"></i> Google
-      </a>
-    </div>
+                <form name="loginForm">
 
-    <div class="container">
-      <div class="signup-or-separator">
-        <h6 class="text" cms-text="auth.or"></h6>
-        <hr>
-      </div>
-    </div>
+                    <md-input-container>
+                        <label>{{'auth.email' | translate}}</label>
+                        <input type="email" name="email" ng-model="ctrl.login.email" required>
+                        <div ng-messages="loginForm.email.$error" ng-show="loginForm.email.$dirty && loginForm.email.$invalid">
+                            <div ng-message="required">This is required!</div>
+                            <div ng-message="email">That's not an e-mail!</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                      <label>{{'auth.password' | translate}}</label>
+                      <input type="password" name="password" ng-model="ctrl.login.password" required md-maxlength="50" minlength="4">
+                        <div ng-messages="loginForm.password.$error" ng-show="loginForm.password.$dirty && loginForm.password.$invalid">
+                            <div ng-message="required">This is required!</div>
+                            <div ng-message="md-maxlength">That's too long!</div>
+                            <div ng-message="minlength">That's too short!</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container ng-hide="ctrl.isLogin" class="animate">
+                      <label>{{'auth.password-confirm' | translate}}</label>
+                      <input type="password" name="passwordCheck" ng-model="ctrl.login.passwordCheck" required ng-if="!ctrl.isLogin" dn-match="ctrl.login.password">
+                        <div ng-messages="loginForm.passwordCheck.$error" ng-show="loginForm.passwordCheck.$dirty && loginForm.passwordCheck.$invalid">
+                            <div ng-message="required">This is required!</div>
+                            <div ng-message="match">Password does not match!</div>
+                        </div>
+                    </md-input-container>
 
-    <div class="container">
-      <form role="form">
+                </form>
+               <md-button ng-show="ctrl.isLogin" class="md-raised" ng-click="ctrl.login()" aria-label="login" ng-disabled="!loginForm.$valid">
+                    <span cms-text="auth.login"></span>
+                </md-button>
+                <md-button ng-hide="ctrl.isLogin" class="md-raised" ng-click="ctrl.signup()" aria-label="signup" ng-disabled="!loginForm.$valid">
+                    <span cms-text="auth.signup"></span>
+                </md-button>
+                <div layout="row">
+                    <div flex="50" layout-align="left">
+                        <md-button class="pull-left" ng-click="ctrl.switchSignup()" aria-label="goto signup">
+                            <span ng-show="ctrl.isLogin" cms-text="auth.to-signup"></span>
+                            <span ng-hide="ctrl.isLogin" cms-text="auth.to-login"></span>
+                        </md-button>
+                    </div>
+                    <div flex="50" layout-align="right">
+                        <md-button class="pull-right" onclick="alert('Not implemented yet!')" aria-label="password lost">
+                            <span cms-text="auth.lost"></span>
+                        </md-button>
+                    </div>
+                </div>
 
-        <div class="form-group input-group">
-          <span class="input-group-addon" id="email-addon"><i class="fa fa-envelope addon"></i></span>
-          <input type="text" class="form-control" id="email" ng-model="ctrl.loginForm.email" aria-describedby="email-addon" placeholder="{{'auth.email' | translate}}">
+            </div>
+            <div flex="30"></div>
         </div>
-        <div class="form-group input-group">
-          <span class="input-group-addon" id="password-addon"><i class="fa fa-lock addon"></i></span>
-          <input type="password" class="form-control" id="pwd" ng-model="ctrl.loginForm.password" aria-describedby="password-addon" placeholder="{{'auth.password' | translate}}">
+
+    <div ng-show="ctrl.isAuthenticated()">
+
+        <div layout="row">
+            <div flex="30"></div>
+            <div flex>
+                <h2>Logout</h2>
+                <div layout="row">
+                    <div flex="50" layout-align="left">
+                        <md-button class="md-raised" ng-click="ctrl.logout()">
+                            Logout
+                        </md-button>
+                    </div>
+                    <div flex="50" layout-align="right">
+                        <md-button class="md-raised" ng-click="ctrl.cancel()">
+                            Cancel
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+            <div flex="30"></div>
         </div>
-        <div ng-hide="ctrl.isLogin">
-          <div class="form-group input-group animate">
-            <span class="input-group-addon" id="password-check-addon"><i class="fa fa-lock addon"></i></span>
-            <input type="password" class="form-control" id="pwd-check" ng-model="ctrl.loginForm.passwordCheck" aria-describedby="password-check-addon" placeholder="{{'auth.password-confirm' | translate}}">
-          </div>
-        </div>
-      </form>
-        <a ng-show="ctrl.isLogin" class="btn btn-block btn-primary" ng-click="ctrl.login()" cms-text="auth.login"></a>
-        <a ng-hide="ctrl.isLogin" class="btn btn-block btn-primary" ng-click="ctrl.signup()" cms-text="auth.signup"></a>
-      <div class="row">
-        <div class="col-md-6">
-          <a class="pull-left" ng-click="ctrl.switch()" cms-text="auth.signup"></a>
-        </div>
-        <div class="col-md-6">
-          <a class="pull-right" onclick="alert('Not implemented yet!')" cms-text="auth.lost"></a>
-        </div>
-      </div>
 
     </div>
-  </div>
-
-  <div ng-show="ctrl.isAuthenticated()">
-    <h3>Logout</h3>
-
-    <div class="container">
-      <a class="btn btn-block btn-primary" ng-click="ctrl.logout()">
-        Logout
-      </a>
-      <a class="btn btn-block btn-default" ng-click="ctrl.cancel()">
-        Cancel
-      </a>
-    </div>
-
-  </div>
-
 </div>

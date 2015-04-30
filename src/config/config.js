@@ -6,7 +6,7 @@
  * @description
  * # config
  */
-angular.module('angularCmsBlox').provider('cmsConfig', ['$translateProvider','$translatePartialLoaderProvider', '$authProvider', '$resourceProvider', function ($translateProvider, $translatePartialLoaderProvider, $authProvider, $resourceProvider) {
+angular.module('angularCmsBlox').provider('cmsConfig', ['$translateProvider','$translatePartialLoaderProvider', '$authProvider', function ($translateProvider, $translatePartialLoaderProvider, $authProvider) {
 
   // Cors without credentials
   $authProvider.withCredentials = false;

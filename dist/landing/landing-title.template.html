@@ -1,0 +1,19 @@
+<div class="landing-title" layout="row" layout-align="center center" layout-fill>
+    <div class="full-width" in-view="ctrl.startLoop()">
+
+        <div ng-switch on="ctrl.settings.index">
+            <h1 class="animate-switch" ng-switch-when="0" translate="{{ctrl.settings.texts[ctrl.settings.index]}}"></h1>
+            <h1 class="animate-switch" ng-switch-when="1" translate="{{ctrl.settings.texts[ctrl.settings.index]}}"></h1>
+            <h1 class="animate-switch" ng-switch-when="2" translate="{{ctrl.settings.texts[ctrl.settings.index]}}"></h1>
+        </div>
+
+        <div ng-show="ctrl.isEditable()">
+
+          <div ng-repeat="text in ctrl.settings.texts">
+            <span cms-text="{{text}}"></span><br>
+          </div>
+
+        </div>
+
+    </div>
+</div>

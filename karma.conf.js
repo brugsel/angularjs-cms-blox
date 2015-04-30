@@ -29,10 +29,14 @@ module.exports = function(config) {
       'bower_components/angular-xeditable/dist/js/xeditable.js',
       'bower_components/satellizer/satellizer.js',
       'bower_components/angular-animate/angular-animate.js',
+      'bower_components/angular-material/angular-material.js',
+      'bower_components/angular-aria/angular-aria.js',
+      'bower_components/angular-messages/angular-messages.js',
+      'bower_components/angular-inview/angular-inview.js',
       'src/*.js',
       'src/**/*.js',
       'src/**/*.html',
-      '.tmp/src/angular-cms-blox-templates.js'
+      '.tmp/angular-cms-blox-templates.js'
     ],
 
     // list of files / patterns to exclude
