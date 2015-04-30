@@ -32,7 +32,7 @@ angular.module('angularCmsBloxDemo',['angularCmsBloxMock', 'ui.router'])
       popupOptions: { width: 580, height: 400 }
     });
 
-    cmsConfigProvider.setProfileUrl('http://doon-platform-test.herokuapp.com/auth/me')
+    cmsConfigProvider.setProfileUrl('http://doon-platform-test.herokuapp.com/auth/me');
 
     cmsConfigProvider.addCmsText('home');
     cmsConfigProvider.addCmsText('auth');

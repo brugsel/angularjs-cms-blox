@@ -42,3 +42,11 @@ mockData.wwwAuth = {
 mockData.wwwArray = [
   mockData.wwwHome
 ];
+
+mockData.config = {
+  "_id" : "development",
+  "config" : {
+    "environment" : "development",
+    "disqusProvider" : "dooninnovation-test"
+  }
+};

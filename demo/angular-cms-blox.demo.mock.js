@@ -2,6 +2,11 @@
 
 angular.module('angularCmsBloxMock').run(function ($httpBackend) {
 
+  $httpBackend.whenGET(/config/).respond(
+    function() {
+      return [200, mockData.config, mockData.contentType];
+    });
+
   $httpBackend.whenGET(/cms_www\/home.nl_NL/).respond(
     function() {
       return [200, mockData.wwwHome, mockData.contentType];
